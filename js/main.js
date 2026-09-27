@@ -163,7 +163,7 @@
   /* =========================================================
      ESCENA 3D DEL HERO + PARALLAX
      ========================================================= */
-  const hero = $('#inicio');
+  const hero = $('#home');
   const scene = $('#scene');
   const logo3d = $('#logo3d');
   const orbitItems = $$('#orbit .orbit-item');

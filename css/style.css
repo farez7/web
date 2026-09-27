@@ -423,6 +423,14 @@ h2 { font-size: clamp(1.9rem, 4.2vw, 3.2rem); line-height: 1.1; font-weight: 700
 .ring-value { position: absolute; inset: 0; display: grid; place-content: center; grid-auto-flow: column; align-items: baseline; font-family: var(--font-display); font-weight: 800; font-size: 3.2rem; letter-spacing: -.04em; }
 .ring-value small { font-size: 1.4rem; color: var(--red); margin-left: 2px; }
 
+.skill-side { display: grid; gap: 20px; }
+.skill-side .skill-feature { flex-direction: row; justify-content: flex-start; gap: 28px; padding: 28px 30px; text-align: left; }
+.skill-side .ring { width: 150px; height: 150px; flex: none; }
+.skill-side .ring-value { font-size: 2.4rem; }
+.skill-side .ring-value small { font-size: 1.1rem; }
+.skill-side .skill-feature h3 { margin: 0 0 4px; }
+.contact-mail { margin-top: 16px; color: var(--muted); font-weight: 500; letter-spacing: .02em; }
+.contact-mail:empty { display: none; }
 .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .tool {
   --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 50%;
@@ -584,6 +592,12 @@ h2 { font-size: clamp(1.9rem, 4.2vw, 3.2rem); line-height: 1.1; font-weight: 700
   .btn-lg { width: 100%; padding: 17px 20px; font-size: 17px; }
   .marquee-wrap { height: 120px; }
   .section-head { margin-bottom: 44px; }
+}
+
+@media (max-width: 480px) {
+  .skill-side .skill-feature { gap: 20px; padding: 24px 20px; }
+  .skill-side .ring { width: 112px; height: 112px; }
+  .skill-side .ring-value { font-size: 1.9rem; }
 }
 
 @media (max-width: 380px) {
