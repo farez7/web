@@ -31,6 +31,7 @@ js/icons.js           Iconos Lottie de cada app
 js/main.js            Parallax 3D, órbita, animaciones
 js/vendor/            Librería lottie-web (local, sin CDN)
 assets/img/           Logo, foto y favicon
+assets/stickers/      Stickers animados: Lottie (.json) y Telegram (.tgs), 512×512, 30 fps, 3 s
 ```
 
 ## Publicarla gratis
