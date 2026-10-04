@@ -51,7 +51,7 @@ async function main() {
   if (previewDir) {
     fs.mkdirSync(previewDir, { recursive: true });
     const lib = fs.readFileSync(LOTTIE, 'utf8');
-    const frames = [0, 15, 30, 45, 57, 75];
+    const frames = [0, 6, 22, 45, 57, 75];
     const cell = 220, ch = Math.round(cell * json.h / json.w);
     const p = await browser.newPage({ viewport: { width: (frames.length + 1) * (cell + 6), height: ch + 30 } });
     const svgUri = 'data:image/svg+xml;base64,' + Buffer.from(svgText).toString('base64');

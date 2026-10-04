@@ -365,6 +365,51 @@
     return { o: { a: 0, k: 100 }, r: { a: 0, k: 0 }, p: { a: 0, k: [a[0], a[1], 0] }, a: { a: 0, k: [a[0], a[1], 0] }, s: { a: 0, k: [100, 100, 100] } };
   }
 
+  // ---------------------------------------------------------------- shape tests
+  // Corazón: exactamente una concavidad marcada (la muesca) y, en el lado
+  // opuesto, una punta aguda. Funciona con corazones girados o deformados.
+  function heartTest(e) {
+    if (!e.subs || !e.subs.length) return { ok: false };
+    const sub = e.subs.reduce((a, b) => (b.segs.length > a.segs.length ? b : a));
+    const P = [];
+    for (const [p0, c1, c2, p3] of sub.segs) for (let k = 0; k < 8; k++) {
+      const t = k / 8, u = 1 - t;
+      P.push([u * u * u * p0[0] + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * p3[0],
+        u * u * u * p0[1] + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * p3[1]]);
+    }
+    const n = P.length;
+    if (n < 12) return { ok: false };
+    const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
+    const size = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    // envolvente convexa (índices en orden del contorno)
+    const idx = [...P.keys()].sort((a, b) => P[a][0] - P[b][0] || P[a][1] - P[b][1]);
+    const cross = (o, a, b) => (P[a][0] - P[o][0]) * (P[b][1] - P[o][1]) - (P[a][1] - P[o][1]) * (P[b][0] - P[o][0]);
+    const half = list => { const h = []; for (const i of list) { while (h.length >= 2 && cross(h[h.length - 2], h[h.length - 1], i) <= 0) h.pop(); h.push(i); } h.pop(); return h; };
+    const hull = half(idx).concat(half(idx.slice().reverse())).sort((a, b) => a - b);
+    const defects = [];
+    for (let k = 0; k < hull.length; k++) {
+      const a = hull[k], b = hull[(k + 1) % hull.length];
+      const ax = P[a][0], ay = P[a][1], dx = P[b][0] - ax, dy = P[b][1] - ay, len = Math.hypot(dx, dy) || 1;
+      let best = 0, at = -1;
+      for (let j = (a + 1) % n; j !== b; j = (j + 1) % n) {
+        const d = Math.abs((P[j][0] - ax) * dy - (P[j][1] - ay) * dx) / len;
+        if (d > best) { best = d; at = j; }
+      }
+      if (at >= 0) defects.push({ d: best / size, at });
+    }
+    defects.sort((a, b) => b.d - a.d);
+    const d1 = defects[0] ? defects[0].d : 0, d2 = defects[1] ? defects[1].d : 0;
+    if (!(d1 > 0.07 && d1 < 0.45 && d2 < 0.035)) return { ok: false, notch: r2(d1), second: r2(d2) };
+    const notch = P[defects[0].at];
+    let far = 0;
+    for (let j = 1; j < n; j++) if (Math.hypot(P[j][0] - notch[0], P[j][1] - notch[1]) > Math.hypot(P[far][0] - notch[0], P[far][1] - notch[1])) far = j;
+    const step = Math.max(2, Math.round(n * 0.06));
+    const A = P[(far - step + n) % n], B = P[(far + step) % n], T = P[far];
+    const ang = Math.acos(Math.max(-1, Math.min(1, ((A[0] - T[0]) * (B[0] - T[0]) + (A[1] - T[1]) * (B[1] - T[1])) /
+      (Math.hypot(A[0] - T[0], A[1] - T[1]) * Math.hypot(B[0] - T[0], B[1] - T[1]) || 1)))) * 180 / Math.PI;
+    return { ok: ang < 135, notch: r2(d1), second: r2(d2), tip: Math.round(ang) };
+  }
+
   // ================================================================ main
   async function analyze(svgText, options = {}) {
     const report = { checks: [], corrections: [], tracks: [], warnings: [] };
@@ -534,9 +579,20 @@
           const c = parseColor(fill);
           if (c) { fl = { ty: 'fl', c: { a: 0, k: [...c.rgb.map(r2v), 1] }, o: { a: 0, k: Math.round(c.a * fo * 1000) / 10 } }; fillLum = lum(c.rgb); }
         }
-        if (fl) { fl.r = cs.fillRule === 'evenodd' ? 2 : 1; rec.items.push(fl); }
+        if (fl) {
+          fl.r = cs.fillRule === 'evenodd' ? 2 : 1;
+          rec.items.push(fl);
+          if (fl.ty === 'fl') rec.fillRgb = fl.c.k.slice(0, 3);
+          else {
+            const k = fl.g.k.k, n = fl.g.p, acc = [0, 0, 0];
+            for (let j = 0; j < n; j++) for (let c = 0; c < 3; c++) acc[c] += k[j * 4 + 1 + c] / n;
+            rec.fillRgb = acc;
+            if (fillLum === null) fillLum = lum(acc);
+          }
+        }
       }
       rec.fillLum = fillLum; rec.strokeLum = strokeLum;
+      rec.darkStroke = strokeLum !== null && strokeLum < 0.3;
       rec.closed = rec.subs.every(s => s.closed);
       rec.ink = (fillLum !== null && fillLum < 0.3) || (strokeLum !== null && strokeLum < 0.3);
       if (!rec.items.length) rec.kind = 'skip';
@@ -631,6 +687,7 @@
           const ks = staticKs([0, 0]);
           ks.p.k = [e.asset.x + ox, e.asset.y + oy, 0];
           ks.s.k = [100 / RASTER_SCALE, 100 / RASTER_SCALE, 100];
+          if (animate && tracks[sg.track] && tracks[sg.track].opacityKeys) ks.o = kf(tracks[sg.track].opacityKeys);
           contentLayers.push({ ...base, ty: 2, nm: `${e.tag} #${e.idx} (imagen)`, refId: id, ks });
           continue;
         }
@@ -644,6 +701,7 @@
           return { ty: 'gr', nm: `${e.tag} #${e.idx}`, it: [...it, ...styles, { ty: 'tr', ...staticKs2() }] };
         });
         const L = { ...base, ty: 4, nm: `${tracks[sg.track] ? tracks[sg.track].label : 'estático'} · ${sg.els[0].idx}-${sg.els[sg.els.length - 1].idx}`, ks: staticKs([0, 0]), shapes };
+        if (animate && tracks[sg.track] && tracks[sg.track].opacityKeys) L.ks.o = kf(tracks[sg.track].opacityKeys);
         const clips = sg.els[0].clips || [];
         if (clips.length) {
           L.hasMask = true;
@@ -690,9 +748,11 @@
       return rasterize(str, cw, ch, 0, 0, dw, dh);
     }
 
-    // Diferencia tolerante: un píxel cuenta como distinto sólo si ningún
-    // píxel vecino (±1) de la otra imagen se le parece. Así se ignoran los
-    // bordes suavizados desplazados un subpíxel, pero no los cambios reales.
+    // Diferencia tolerante: un píxel cuenta como distinto sólo si su color
+    // queda fuera del rango (mín–máx ± 24) de sus vecinos 3×3 en la otra
+    // imagen, en cualquiera de los dos sentidos. Así se aceptan los bordes
+    // suavizados desplazados un subpíxel, pero no los colores o formas que
+    // faltan o sobran.
     function compare(a, b, n, w) {
       w = w || AW;
       const h = n / w;
@@ -705,25 +765,27 @@
         return o;
       };
       const A = flat(a), B = flat(b);
-      const near = (X, Y, i) => {
+      const outside = (X, Y, i) => {
         const x = i % w, y = (i / w) | 0;
-        let best = 1e9;
-        for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
-          const xx = x + dx, yy = y + dy;
-          if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
-          const j = yy * w + xx;
-          const d = Math.max(Math.abs(X[i * 3] - Y[j * 3]), Math.abs(X[i * 3 + 1] - Y[j * 3 + 1]), Math.abs(X[i * 3 + 2] - Y[j * 3 + 2]));
-          if (d < best) best = d;
-          if (best <= 48) return best;
+        for (let c = 0; c < 3; c++) {
+          let lo = 1e9, hi = -1e9;
+          for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+            const xx = x + dx, yy = y + dy;
+            if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
+            const v = Y[(yy * w + xx) * 3 + c];
+            if (v < lo) lo = v; if (v > hi) hi = v;
+          }
+          const v = X[i * 3 + c];
+          if (v < lo - 24 || v > hi + 24) return true;
         }
-        return best;
+        return false;
       };
       const bad = new Uint8Array(n);
       let count = 0;
       for (let i = 0; i < n; i++) {
         const d = Math.max(Math.abs(A[i * 3] - B[i * 3]), Math.abs(A[i * 3 + 1] - B[i * 3 + 1]), Math.abs(A[i * 3 + 2] - B[i * 3 + 2]));
-        if (d <= 48) continue;
-        if (near(A, B, i) > 48 || near(B, A, i) > 48) { bad[i] = 1; count++; }
+        if (d <= 24) continue;
+        if (outside(A, B, i) || outside(B, A, i)) { bad[i] = 1; count++; }
       }
       return { bad, count };
     }
@@ -750,7 +812,7 @@
       fidelity = { pass, badPixels: count, badPct: +(100 * count / (VW * VH)).toFixed(3) };
       if (options.debug && pass === 0) report.debug = { a: toUrl(origFull, VW, VH), b: toUrl(frame, VW, VH), d: toUrl(bad, VW, VH, true) };
       const flagged = live.filter(e => e.kind === 'vector' && (per[e.idx] || 0) >= Math.max(24, 0.03 * e.n * 4));
-      if (!flagged.length) break;
+      if (!flagged.length || options.noFallback) break;
       for (const e of flagged) {
         e.kind = 'raster';
         e.reasons.push('diff');
@@ -881,6 +943,7 @@
         const cx = (e.bb.x0 + e.bb.x1) / 2, cy = (e.bb.y0 + e.bb.y1) / 2, bw = e.bb.x1 - e.bb.x0, bh = e.bb.y1 - e.bb.y0;
         const named = hint(e, /\b(mouth|boca)/i);
         return named || (cy > eyeY + 0.6 * eyeH && cy < eyeY + 2.2 * eyeDist && cx > ca[0][0] - 0.6 * eyeDist && cx < ca[1][0] + 0.6 * eyeDist &&
+          Math.abs(cx - (ca[0][0] + ca[1][0]) / 2) < 0.35 * eyeDist && bh >= 0.3 * eyeH &&
           bw > 1.1 * bh && bw >= 0.5 * eyeDist && bw < 2.2 * eyeDist && e.regionN < 0.05 * E0area && e.fillLum < 0.55 && e.n / (bw * bh) > 0.3);
       }).sort((a, b) => b.n - a.n);
       const mouth = mc[0];
@@ -896,6 +959,38 @@
         assign(members, 'mouth');
         members.forEach(m => used.add(m.idx));
         report.tracks.push({ id: 'mouth', tipo: 'boca', animación: 'se abre y cierra suavemente (anclada arriba)', elementos: members.map(e => e.idx) });
+      }
+    }
+
+    // --- mejillas (sonrojo): manchas rosadas sin contorno junto a los ojos
+    const hueSat = rgb => {
+      const mx = Math.max(...rgb), mn = Math.min(...rgb), d = mx - mn;
+      if (!d) return { h: 0, s: 0 };
+      let h = mx === rgb[0] ? ((rgb[1] - rgb[2]) / d) % 6 : mx === rgb[1] ? (rgb[2] - rgb[0]) / d + 2 : (rgb[0] - rgb[1]) / d + 4;
+      h = (h * 60 + 360) % 360;
+      return { h, s: d / mx };
+    };
+    const reddish = e => { if (!e.fillRgb) return false; const { h, s } = hueSat(e.fillRgb); return s > 0.3 && (h >= 320 || h <= 20); };
+    if (eyes) {
+      const ca = eyes.map(e => [(e.bb.x0 + e.bb.x1) / 2, (e.bb.y0 + e.bb.y1) / 2]);
+      const eyeDist = ca[1][0] - ca[0][0], eyeY = (ca[0][1] + ca[1][1]) / 2;
+      const cheeks = mainEls.filter(e => !used.has(e.idx) && e !== E0 && e.bb && e.closed && !e.darkStroke && reddish(e) && e.fillLum > 0.3 &&
+        e.regionN < 0.03 * E0area && Math.abs((e.bb.y0 + e.bb.y1) / 2 - eyeY) < 1.0 * eyeDist &&
+        (e.bb.x0 + e.bb.x1) / 2 > ca[0][0] - 0.9 * eyeDist && (e.bb.x0 + e.bb.x1) / 2 < ca[1][0] + 0.9 * eyeDist);
+      if (cheeks.length) {
+        const members = new Set(cheeks);
+        for (const c of cheeks) for (const e of mainEls) {
+          if (used.has(e.idx) || e === E0 || !e.bb || Math.abs(e.idx - c.idx) > 4) continue;
+          if (e.bb.x0 >= c.bb.x0 - 2 && e.bb.x1 <= c.bb.x1 + 2 && e.bb.y0 >= c.bb.y0 - 2 && e.bb.y1 <= c.bb.y1 + 2) members.add(e);
+        }
+        const b = toComp(cheeks[0].bb);
+        tracks.blush = {
+          label: 'mejillas', kind: 'blush', pivot: [b.x + b.w / 2, b.y + b.h / 2],
+          opacityKeys: [{ t: 0, s: [100] }, { t: OP / 2, s: [70] }, { t: OP, s: [100] }],
+        };
+        assign([...members], 'blush');
+        members.forEach(m => used.add(m.idx));
+        report.tracks.push({ id: 'blush', tipo: 'mejillas', animación: 'sonrojo que pulsa (opacidad 100 → 70 %)', elementos: [...members].map(e => e.idx) });
       }
     }
 
@@ -971,6 +1066,54 @@
       report.tracks.push({ id, tipo: 'parte saliente (cola/brazo/accesorio)', animación: `balanceo ±${r2(A)}° desde la unión`, pivote: pivot.map(r2), elementos: ids });
       pi++;
     }
+    // --- acentos que laten: corazones y formas rojas/rosadas con contorno propio
+    let ai = 0;
+    const takenAcc = new Set();
+    for (const c of mainEls) {
+      if (trackOf[c.idx] || used.has(c.idx) || takenAcc.has(c.idx) || c === E0 || !c.bb || !c.closed || !reddish(c)) continue;
+      if (c.regionN < 0.0015 * E0area || c.regionN > 0.06 * E0area || c.fillLum < 0.2) continue;
+      if (Math.min(c.bb.x1 - c.bb.x0, c.bb.y1 - c.bb.y0) < 0.05 * (main.bb.y1 - main.bb.y0)) continue;
+      const outline = mainEls.find(e => e !== c && e.ink && e.bb && Math.abs(e.idx - c.idx) <= 2 && !trackOf[e.idx] &&
+        Math.abs(e.bb.x0 - c.bb.x0) <= 3 && Math.abs(e.bb.x1 - c.bb.x1) <= 3 && Math.abs(e.bb.y0 - c.bb.y0) <= 3 && Math.abs(e.bb.y1 - c.bb.y1) <= 3);
+      if (!c.darkStroke && !outline) continue;
+      const members = [c];
+      if (outline) members.push(outline);
+      for (const e of mainEls) {
+        if (members.includes(e) || trackOf[e.idx] || e === E0 || !e.bb || e.idx < c.idx || e.idx - c.idx > 4) continue;
+        if (e.bb.x0 >= c.bb.x0 && e.bb.x1 <= c.bb.x1 && e.bb.y0 >= c.bb.y0 && e.bb.y1 <= c.bb.y1) members.push(e);
+      }
+      const mset = new Set(members.map(m => m.idx));
+      const ink = new Uint8Array(N);
+      mainEls.forEach(e => { if (!mset.has(e.idx) && e.ink) for (let i = 0; i < N; i++) if (e.mask[i]) ink[i] = 1; });
+      const inkD = dilate(ink, AW, AH, 1);
+      const b = toComp(c.bb), ctr = [b.x + b.w / 2, b.y + b.h / 2];
+      let rMax = 0, touch = 0;
+      members.forEach(m => { for (let i = 0; i < N; i++) if (m.mask[i] && inkD[i]) { touch++; rMax = Math.max(rMax, Math.hypot((i % AW) / S - ctr[0], ((i / AW) | 0) / S - ctr[1])); } });
+      let amp = 0.07;
+      if (touch) amp = Math.min(amp, jointLimit / Math.max(1, rMax));
+      if (amp < 0.02) {
+        report.corrections.push(`Acento rojo/rosado (elementos ${[...mset].join(', ')}) toca otras líneas: si latiera las separaría, se deja fijo.`);
+        continue;
+      }
+      // ¿tiene forma de corazón? muesca arriba en el centro, lóbulos anchos y punta abajo
+      const heartShape = heartTest(c);
+      const isHeart = heartShape.ok;
+      const v = k => r2(100 + 100 * amp * k);
+      const beat = t => [{ t, s: [100, 100, 100], e: 'snap' }, { t: t + 6, s: [v(1), v(1), 100], e: 'snap' }, { t: t + 11, s: [100, 100, 100], e: 'snap' },
+        { t: t + 16, s: [v(0.57), v(0.57), 100], e: 'snap' }, { t: t + 24, s: [100, 100, 100], e: 'snap' }];
+      const id = 'accent' + ai;
+      tracks[id] = {
+        label: isHeart ? `corazón ${ai + 1}` : `acento ${ai + 1}`, kind: 'accent', pivot: ctr,
+        scaleKeys: isHeart
+          ? [...beat(0), ...beat(45), { t: OP, s: [100, 100, 100] }].filter((k, j, arr) => !(j && k.t === arr[j - 1].t))
+          : [{ t: 0, s: [100, 100, 100] }, { t: OP / 2, s: [v(0.5), v(0.5), 100] }, { t: OP, s: [100, 100, 100] }],
+      };
+      assign(members, id);
+      members.forEach(m => takenAcc.add(m.idx));
+      report.tracks.push({ id, tipo: isHeart ? 'corazón' : 'acento rojo/rosado', animación: isHeart ? `late (+${r2(amp * 100)} %, dos latidos dobles por ciclo)` : `pulsa suave (+${r2(amp * 50)} %)`, color: '#' + c.fillRgb.map(v => Math.round(v * 255).toString(16).padStart(2, '0')).join(''), tamaño: [r2(b.w), r2(b.h)], forma: heartShape, elementos: [...mset] });
+      ai++;
+    }
+
     report.tracks.unshift({ id: 'rig', tipo: 'cuerpo completo', animación: 'respiración suave (+1,4 % alto, anclada abajo)' });
 
     // ------------------------------------------------ STEP 3: margins (analytic + render check)
@@ -1058,5 +1201,5 @@
     return { json, report };
   }
 
-  window.FlorkAnimator = { analyze, FR, OP };
+  window.FlorkAnimator = { analyze, FR, OP, _parsePath: parsePath };
 })();
