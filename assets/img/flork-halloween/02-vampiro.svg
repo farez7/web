@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 -100 660 660" width="512" height="512" role="img" aria-label="Flork vampiro: Muajaja">
+  <title>Flork vampiro: Muajaja</title>
+  <path d="M 168 150 C 112 260, 92 380, 82 484 L 562 484 C 556 380, 536 250, 482 140 Z" fill="#17171b" stroke="#1d1d1f" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M 108 470 C 118 380, 134 290, 170 200" fill="none" stroke="#c4162a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 536 470 C 528 380, 514 290, 482 196" fill="none" stroke="#c4162a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M 214 228 L 92 64 L 186 136 Z" fill="#17171b" stroke="#1d1d1f" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M 200 208 L 112 92 L 182 148 Z" fill="#c4162a"/>
+  <path d="M 452 206 L 566 52 L 488 132 Z" fill="#17171b" stroke="#1d1d1f" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M 468 188 L 548 80 L 494 140 Z" fill="#c4162a"/>
+  <defs><clipPath id="bodyClip"><path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z"/></clipPath></defs>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z" fill="#fff"/>
+  <g clip-path="url(#bodyClip)" fill="#e3e3e8">
+    <path d="M 264 52 C 205 82, 166 152, 154 236 C 142 320, 146 410, 154 520 L 214 520 C 196 420, 189 330, 197 250 C 205 172, 228 106, 264 52 Z"/>
+    <path d="M 266 150 C 285 174, 330 184, 390 183 C 430 182, 456 173, 474 158 L 474 194 C 440 210, 380 212, 330 204 C 298 198, 278 182, 266 160 Z"/>
+  </g>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="330" cy="120" r="9" fill="#1d1d1f"/><circle cx="333" cy="117" r="2.6" fill="#fff"/>
+  <circle cx="442" cy="124" r="9" fill="#1d1d1f"/><circle cx="445" cy="121" r="2.6" fill="#fff"/>
+  <path d="M 304 90 L 350 106" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 468 96 L 424 110" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 326 172 L 334 194 L 342 174 Z M 408 176 L 416 198 L 424 175 Z" fill="#fff" stroke="#1d1d1f" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M 263 135 C 262 146, 268 156, 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 300 196 Q 340 236 378 238 Q 420 236 458 200" fill="none" stroke="#c9a227" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 7"/>
+  <circle cx="378" cy="242" r="16" fill="#c4162a" stroke="#1d1d1f" stroke-width="5"/><circle cx="373" cy="237" r="4" fill="#fff" opacity=".6"/>
+  <path d="M 196 287 C 205 330, 214 370, 226 404" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 452 292 C 458 330, 462 368, 466 398" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="228" cy="412" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="223" cy="406" rx="6.4" ry="3.5" transform="rotate(-30 223 406)" fill="#fff" opacity=".3"/>
+  <circle cx="467" cy="406" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="462" cy="400" rx="6.4" ry="3.5" transform="rotate(-30 462 400)" fill="#fff" opacity=".3"/>
+  <path d="M 597.6 26.2 L 600.6 14.5 L 605.8 26.8 L 616 15.8 L 632.6 8.9 L 649.1 16.1 L 642.3 26.5 L 635.6 34.7 L 627.9 31 L 622.5 41.1 L 614.8 37.4 L 608.8 49.6 L 602.6 54.8 L 595 52 L 585.2 42.6 L 579.2 48.7 L 570.7 41.1 L 564.7 47.2 L 555.6 41.7 L 545.7 34.3 L 558.7 21.9 L 576.7 22.8 L 590 29.6 L 590.7 16.2 Z" fill="#1d1d1f" stroke="#1d1d1f" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M 122 0.7 L 126.9 -5.9 L 127 3.1 L 136.3 -1.1 L 148.5 -1.3 L 157 7.4 L 150.1 12.2 L 143.8 15.8 L 139.9 11.4 L 133.9 16.4 L 130 12.1 L 123.1 18.3 L 117.9 20 L 113.8 16.3 L 110 7.9 L 104.7 10.2 L 101.3 3.2 L 95.9 5.6 L 91.6 -0.2 L 87.2 -7.4 L 98.6 -11.9 L 109.7 -6.8 L 116.4 0.9 L 120.2 -7.3 Z" fill="#1d1d1f" stroke="#1d1d1f" stroke-width="3" stroke-linejoin="round"/>
+  <text x="380" y="540" text-anchor="middle" font-size="54" font-weight="900" font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', 'Segoe Print', cursive, sans-serif" fill="#c4162a" stroke="#fff" stroke-width="12" stroke-linejoin="round" paint-order="stroke">Muajajajá</text>
+</svg>

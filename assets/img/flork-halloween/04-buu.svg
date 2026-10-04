@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 -100 660 660" width="512" height="512" role="img" aria-label="Flork fantasma: ¡BUU!">
+  <title>Flork fantasma: ¡BUU!</title>
+  <defs><clipPath id="bodyClip"><path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Q 465.5 510, 437 484 Q 408.5 502, 380 484 Q 351.5 510, 323 484 Q 294.5 502, 266 484 Q 237.5 510, 209 484 Q 180.5 502, 152 484 Z"/></clipPath></defs>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Q 465.5 510, 437 484 Q 408.5 502, 380 484 Q 351.5 510, 323 484 Q 294.5 502, 266 484 Q 237.5 510, 209 484 Q 180.5 502, 152 484 Z" fill="#fff"/>
+  <g clip-path="url(#bodyClip)" fill="#e3e3e8">
+    <path d="M 264 52 C 205 82, 166 152, 154 236 C 142 320, 146 410, 154 520 L 214 520 C 196 420, 189 330, 197 250 C 205 172, 228 106, 264 52 Z"/>
+    <path d="M 266 150 C 285 174, 330 184, 390 183 C 430 182, 456 173, 474 158 L 474 194 C 440 210, 380 212, 330 204 C 298 198, 278 182, 266 160 Z"/>
+  </g>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Q 465.5 510, 437 484 Q 408.5 502, 380 484 Q 351.5 510, 323 484 Q 294.5 502, 266 484 Q 237.5 510, 209 484 Q 180.5 502, 152 484 Z" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="330" cy="120" r="9" fill="#1d1d1f"/><circle cx="333" cy="117" r="2.6" fill="#fff"/>
+  <circle cx="442" cy="124" r="9" fill="#1d1d1f"/><circle cx="445" cy="121" r="2.6" fill="#fff"/>
+  <defs><clipPath id="mouthClip"><path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z"/></clipPath></defs>
+  <path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z" fill="#4a1620"/>
+  <ellipse cx="372" cy="214" rx="40" ry="20" fill="#f06a80" clip-path="url(#mouthClip)"/>
+  <path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linejoin="round"/>
+  <path d="M 263 135 C 262 146, 268 156, 280 162" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 196 287 C 160 240, 132 192, 120 146" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 452 290 C 500 252, 540 204, 560 156" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="118" cy="134" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="113" cy="128" rx="6.4" ry="3.5" transform="rotate(-30 113 128)" fill="#fff" opacity=".3"/>
+  <circle cx="563" cy="144" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="558" cy="138" rx="6.4" ry="3.5" transform="rotate(-30 558 138)" fill="#fff" opacity=".3"/>
+  <path d="M 118 92 Q 106 70 116 50 M 140 96 Q 140 72 154 56 M 560 98 Q 572 76 564 54 M 586 108 Q 598 90 610 82" fill="none" stroke="#1d1d1f" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="380" y="540" text-anchor="middle" font-size="54" font-weight="900" font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', 'Segoe Print', cursive, sans-serif" fill="#3a2466" stroke="#fff" stroke-width="12" stroke-linejoin="round" paint-order="stroke">¡BUUU!</text>
+</svg>

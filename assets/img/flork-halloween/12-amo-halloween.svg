@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 -100 660 660" width="512" height="512" role="img" aria-label="Flork enamorado: Amo Halloween">
+  <title>Flork enamorado: Amo Halloween</title>
+  <defs><clipPath id="bodyClip"><path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z"/></clipPath></defs>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z" fill="#fff"/>
+  <g clip-path="url(#bodyClip)" fill="#e3e3e8">
+    <path d="M 264 52 C 205 82, 166 152, 154 236 C 142 320, 146 410, 154 520 L 214 520 C 196 420, 189 330, 197 250 C 205 172, 228 106, 264 52 Z"/>
+    <path d="M 266 150 C 285 174, 330 184, 390 183 C 430 182, 456 173, 474 158 L 474 194 C 440 210, 380 212, 330 204 C 298 198, 278 182, 266 160 Z"/>
+  </g>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 332.4 136.8 C 324.6 131.9, 310.5 124.8, 309.1 115.3 C 308.1 107.9, 313 102.6, 318.4 101.8 C 322.9 101.2, 326.5 103.5, 328.3 107.7 C 328.9 103.2, 331.6 100, 336.2 99.3 C 341.5 98.6, 347.7 102.4, 348.7 109.7 C 350.1 119.2, 338.5 129.9, 332.4 136.8 Z" fill="#e8304f" stroke="#1d1d1f" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="321.2" cy="112" rx="4.8" ry="2.8" transform="rotate(-35 321.2 112)" fill="#fff" opacity=".7"/>
+  <path d="M 439.6 140.8 C 433.5 133.9, 421.9 123.2, 423.3 113.7 C 424.3 106.4, 430.5 102.6, 435.8 103.3 C 440.4 104, 443.1 107.2, 443.7 111.7 C 445.5 107.5, 449.1 105.2, 453.6 105.8 C 459 106.6, 463.9 111.9, 462.9 119.3 C 461.5 128.8, 447.4 135.9, 439.6 140.8 Z" fill="#e8304f" stroke="#1d1d1f" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="433.2" cy="116" rx="4.8" ry="2.8" transform="rotate(-35 433.2 116)" fill="#fff" opacity=".7"/>
+  <defs><radialGradient id="blushG"><stop offset="0" stop-color="#ff6f86" stop-opacity=".8"/><stop offset=".6" stop-color="#ff6f86" stop-opacity=".35"/><stop offset="1" stop-color="#ff6f86" stop-opacity="0"/></radialGradient></defs>
+  <ellipse cx="318" cy="156" rx="30" ry="14" fill="url(#blushG)"/>
+  <ellipse cx="444" cy="160" rx="26" ry="13" fill="url(#blushG)"/>
+  <g stroke="#e4465c" stroke-width="3.6" stroke-linecap="round"><path d="M 302 160 L 310 151 M 314 162 L 323 152 M 326 163 L 335 154 M 431 166 L 438 158 M 442 167 L 450 158 M 453 166 L 460 158"/></g>
+  <path d="M 263 135 C 262 146, 268 156, 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <defs><radialGradient id="pgp380400" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ffab45"/><stop offset="1" stop-color="#e2650f"/></radialGradient></defs>
+  <path d="M 376 328.24 C 374 309.84000000000003, 384 298.8, 398 295.12 L 402 306.15999999999997 C 392 309.84000000000003, 390 317.2, 392 330.08 Z" fill="#5c8a2e" stroke="#1d1d1f" stroke-width="5" stroke-linejoin="round"/>
+  <ellipse cx="380" cy="400" rx="92" ry="77.3" fill="url(#pgp380400)" stroke="#1d1d1f" stroke-width="7"/>
+  <path d="M 329.4 326.4 Q 301.6 400 329.4 473.6" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 361.6 326.4 Q 351.5 400 361.6 473.6" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 398.4 326.4 Q 408.5 400 398.4 473.6" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 430.6 326.4 Q 458.4 400 430.6 473.6" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 334 389 L 363.4 398.2 L 345 366.9 Z M 426 389 L 396.6 398.2 L 415 366.9 Z M 329.4 416.6 Q 380 431.3 430.6 416.6 Q 416.8 453.4 391 451.5 L 387.4 438.6 L 372.6 438.6 L 369 451.5 Q 343.2 453.4 329.4 416.6 Z" fill="#3b1a08" stroke="#1d1d1f" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M 196 287 C 250 342, 330 342, 418 306" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 452 292 C 410 336, 340 352, 284 328" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="428" cy="300" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="423" cy="294" rx="6.4" ry="3.5" transform="rotate(-30 423 294)" fill="#fff" opacity=".3"/>
+  <circle cx="276" cy="322" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="271" cy="316" rx="6.4" ry="3.5" transform="rotate(-30 271 316)" fill="#fff" opacity=".3"/>
+  <path d="M 566.9 102.4 C 562.9 96.7, 555.1 87.8, 556.8 80.8 C 558.2 75.5, 563.1 73.1, 567 74.1 C 570.4 74.9, 572.2 77.6, 572.2 81 C 573.9 78, 576.8 76.5, 580.1 77.4 C 584 78.3, 587.3 82.7, 585.9 88.1 C 584.2 95.1, 573.1 99.3, 566.9 102.4 Z" fill="#f0607e" stroke="#1d1d1f" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="563.4" cy="84" rx="3.6" ry="2.1" transform="rotate(-35 563.4 84)" fill="#fff" opacity=".7"/>
+  <path d="M 611.5 38.4 C 607.5 36, 600.3 32.7, 599.5 28 C 598.8 24.4, 601.2 21.6, 603.9 21.1 C 606.1 20.7, 608 21.8, 608.9 23.9 C 609.1 21.6, 610.5 20, 612.7 19.6 C 615.4 19.1, 618.5 20.9, 619.2 24.5 C 620 29.2, 614.4 34.8, 611.5 38.4 Z" fill="#f0607e" stroke="#1d1d1f" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="605.6" cy="26" rx="2.4" ry="1.4" transform="rotate(-35 605.6 26)" fill="#fff" opacity=".7"/>
+  <path d="M 142.5 49.9 C 137.5 47.4, 128.6 44.1, 127.3 38.5 C 126.2 34.2, 128.8 30.7, 131.9 29.9 C 134.6 29.2, 136.9 30.4, 138.2 32.8 C 138.3 30, 139.7 28, 142.4 27.3 C 145.5 26.5, 149.5 28.4, 150.5 32.7 C 151.9 38.3, 145.7 45.4, 142.5 49.9 Z" fill="#f0607e" stroke="#1d1d1f" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="134.7" cy="35.2" rx="2.9" ry="1.7" transform="rotate(-35 134.7 35.2)" fill="#fff" opacity=".7"/>
+  <text x="380" y="540" text-anchor="middle" font-size="54" font-weight="900" font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', 'Segoe Print', cursive, sans-serif" fill="#e2650f" stroke="#fff" stroke-width="12" stroke-linejoin="round" paint-order="stroke">Amo Halloween</text>
+</svg>

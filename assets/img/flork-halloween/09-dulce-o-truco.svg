@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 -100 660 660" width="512" height="512" role="img" aria-label="Flork: ¿Dulce o truco?">
+  <title>Flork: ¿Dulce o truco?</title>
+  <defs><clipPath id="bodyClip"><path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z"/></clipPath></defs>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z" fill="#fff"/>
+  <g clip-path="url(#bodyClip)" fill="#e3e3e8">
+    <path d="M 264 52 C 205 82, 166 152, 154 236 C 142 320, 146 410, 154 520 L 214 520 C 196 420, 189 330, 197 250 C 205 172, 228 106, 264 52 Z"/>
+    <path d="M 266 150 C 285 174, 330 184, 390 183 C 430 182, 456 173, 474 158 L 474 194 C 440 210, 380 212, 330 204 C 298 198, 278 182, 266 160 Z"/>
+  </g>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="330" cy="120" r="17" fill="#1d1d1f"/><circle cx="336" cy="114" r="6" fill="#fff"/><circle cx="324" cy="127" r="3" fill="#fff"/>
+  <circle cx="442" cy="124" r="17" fill="#1d1d1f"/><circle cx="448" cy="118" r="6" fill="#fff"/><circle cx="436" cy="131" r="3" fill="#fff"/>
+  <defs><radialGradient id="blushG"><stop offset="0" stop-color="#ff6f86" stop-opacity=".8"/><stop offset=".6" stop-color="#ff6f86" stop-opacity=".35"/><stop offset="1" stop-color="#ff6f86" stop-opacity="0"/></radialGradient></defs>
+  <ellipse cx="318" cy="156" rx="30" ry="14" fill="url(#blushG)"/>
+  <ellipse cx="444" cy="160" rx="26" ry="13" fill="url(#blushG)"/>
+  <g stroke="#e4465c" stroke-width="3.6" stroke-linecap="round"><path d="M 302 160 L 310 151 M 314 162 L 323 152 M 326 163 L 335 154 M 431 166 L 438 158 M 442 167 L 450 158 M 453 166 L 460 158"/></g>
+  <defs><clipPath id="mouthClip"><path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z"/></clipPath></defs>
+  <path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z" fill="#4a1620"/>
+  <ellipse cx="372" cy="214" rx="40" ry="20" fill="#f06a80" clip-path="url(#mouthClip)"/>
+  <path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linejoin="round"/>
+  <path d="M 263 135 C 262 146, 268 156, 280 162" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 296 380 C 270 460, 320 496, 380 496 C 440 496, 490 460, 464 380 Z" fill="#2c2c34" stroke="#1d1d1f" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M 320 400 C 306 440, 324 466, 350 478" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".18"/>
+  <ellipse cx="380" cy="372" rx="80" ry="18" fill="#7cf08a" stroke="#1d1d1f" stroke-width="5"/>
+  <g transform="rotate(-20 334 358)"><path d="M 322 358 L 308 348 L 308 368 Z M 346 358 L 360 348 L 360 368 Z" fill="#ff5fa2" stroke="#1d1d1f" stroke-width="3.5" stroke-linejoin="round"/><ellipse cx="334" cy="358" rx="15" ry="11" fill="#ff5fa2" stroke="#1d1d1f" stroke-width="3.5"/><path d="M 328 349 L 336 367 M 337 348 L 344 365" stroke="#fff" stroke-width="3" opacity=".7"/></g>
+  <g transform="rotate(-8 426 360)"><path d="M 414 360 L 400 350 L 400 370 Z M 438 360 L 452 350 L 452 370 Z" fill="#47c1ff" stroke="#1d1d1f" stroke-width="3.5" stroke-linejoin="round"/><ellipse cx="426" cy="360" rx="15" ry="11" fill="#47c1ff" stroke="#1d1d1f" stroke-width="3.5"/><path d="M 420 351 L 428 369 M 429 350 L 436 367" stroke="#fff" stroke-width="3" opacity=".7"/></g>
+  <g transform="rotate(12 376 346)"><path d="M 364 346 L 350 336 L 350 356 Z M 388 346 L 402 336 L 402 356 Z" fill="#ffd23f" stroke="#1d1d1f" stroke-width="3.5" stroke-linejoin="round"/><ellipse cx="376" cy="346" rx="15" ry="11" fill="#ffd23f" stroke="#1d1d1f" stroke-width="3.5"/><path d="M 370 337 L 378 355 M 379 336 L 386 353" stroke="#fff" stroke-width="3" opacity=".7"/></g>
+  <g transform="rotate(30 394 366)"><path d="M 382 366 L 368 356 L 368 376 Z M 406 366 L 420 356 L 420 376 Z" fill="#9b5de5" stroke="#1d1d1f" stroke-width="3.5" stroke-linejoin="round"/><ellipse cx="394" cy="366" rx="15" ry="11" fill="#9b5de5" stroke="#1d1d1f" stroke-width="3.5"/><path d="M 388 357 L 396 375 M 397 356 L 404 373" stroke="#fff" stroke-width="3" opacity=".7"/></g>
+  <path d="M 284 376 Q 380 400 476 376" fill="none" stroke="#3d3d47" stroke-width="16" stroke-linecap="round"/>
+  <path d="M 284 376 Q 380 400 476 376" fill="none" stroke="#1d1d1f" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+  <path d="M 196 287 C 230 330, 268 356, 306 370" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 452 292 C 452 326, 450 352, 446 366" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="316" cy="374" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="311" cy="368" rx="6.4" ry="3.5" transform="rotate(-30 311 368)" fill="#fff" opacity=".3"/>
+  <circle cx="444" cy="376" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="439" cy="370" rx="6.4" ry="3.5" transform="rotate(-30 439 370)" fill="#fff" opacity=".3"/>
+  <path d="M 560 106 Q 560 120 574 120 Q 560 120 560 134 Q 560 120 546 120 Q 560 120 560 106 Z" fill="#ffd23f" stroke="#1d1d1f" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M 600 190 Q 600 200 610 200 Q 600 200 600 210 Q 600 200 590 200 Q 600 200 600 190 Z" fill="#ffd23f" stroke="#1d1d1f" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M 150 48 Q 150 60 162 60 Q 150 60 150 72 Q 150 60 138 60 Q 150 60 150 48 Z" fill="#ffd23f" stroke="#1d1d1f" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="380" y="540" text-anchor="middle" font-size="54" font-weight="900" font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', 'Segoe Print', cursive, sans-serif" fill="#9b5de5" stroke="#fff" stroke-width="12" stroke-linejoin="round" paint-order="stroke">¿Dulce o truco?</text>
+</svg>

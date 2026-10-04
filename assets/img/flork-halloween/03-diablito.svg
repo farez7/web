@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 -100 660 660" width="512" height="512" role="img" aria-label="Flork diablito: Hoy me porto mal">
+  <title>Flork diablito: Hoy me porto mal</title>
+  <path d="M 470 440 C 540 450, 590 420, 584 360 C 580 330, 600 310, 616 312" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 470 440 C 540 450, 590 420, 584 360 C 580 330, 600 310, 616 312" fill="none" stroke="#e0283a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 604 316 L 630 282 L 642 330 Z" fill="#e0283a" stroke="#1d1d1f" stroke-width="5" stroke-linejoin="round"/>
+  <defs><clipPath id="bodyClip"><path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z"/></clipPath></defs>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z" fill="#fff"/>
+  <g clip-path="url(#bodyClip)" fill="#e3e3e8">
+    <path d="M 264 52 C 205 82, 166 152, 154 236 C 142 320, 146 410, 154 520 L 214 520 C 196 420, 189 330, 197 250 C 205 172, 228 106, 264 52 Z"/>
+    <path d="M 266 150 C 285 174, 330 184, 390 183 C 430 182, 456 173, 474 158 L 474 194 C 440 210, 380 212, 330 204 C 298 198, 278 182, 266 160 Z"/>
+  </g>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 252 74 C 236 50, 232 20, 244 -8 C 256 20, 276 40, 300 48 Z" fill="#e0283a" stroke="#1d1d1f" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M 406 44 C 418 20, 436 2, 460 -8 C 464 22, 458 52, 446 72 Z" fill="#e0283a" stroke="#1d1d1f" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="330" cy="120" r="9" fill="#1d1d1f"/><circle cx="333" cy="117" r="2.6" fill="#fff"/>
+  <circle cx="442" cy="124" r="9" fill="#1d1d1f"/><circle cx="445" cy="121" r="2.6" fill="#fff"/>
+  <path d="M 304 90 L 350 106" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 468 96 L 424 110" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <defs><radialGradient id="blushG"><stop offset="0" stop-color="#ff4d5e" stop-opacity=".8"/><stop offset=".6" stop-color="#ff4d5e" stop-opacity=".35"/><stop offset="1" stop-color="#ff4d5e" stop-opacity="0"/></radialGradient></defs>
+  <ellipse cx="318" cy="156" rx="30" ry="14" fill="url(#blushG)"/>
+  <ellipse cx="444" cy="160" rx="26" ry="13" fill="url(#blushG)"/>
+  <defs><clipPath id="mouthClip"><path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z"/></clipPath></defs>
+  <path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z" fill="#4a1620"/>
+  <ellipse cx="372" cy="214" rx="40" ry="20" fill="#f06a80" clip-path="url(#mouthClip)"/>
+  <path d="M 278 160 L 300 186 L 310 170 L 320 186 L 330 170 L 340 186 L 350 170 L 360 186 L 370 170 L 380 190 L 390 174 L 400 190 L 410 174 L 420 190 L 430 174 L 440 186 L 450 170 L 460 186 L 470 170 L 470 160 Z" fill="#fff" stroke="#1d1d1f" stroke-width="3" stroke-linejoin="round" clip-path="url(#mouthClip)"/>
+  <path d="M 280 162 C 305 174, 345 178, 390 177 C 425 176, 452 170, 470 160 C 446 222, 318 226, 280 162 Z" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linejoin="round"/>
+  <path d="M 263 135 C 262 146, 268 156, 280 162" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 562 500 L 562 150" stroke="#1d1d1f" stroke-width="14" stroke-linecap="round"/>
+  <path d="M 562 500 L 562 150" stroke="#8a5a2b" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 526 120 C 526 150, 540 160, 562 160 C 584 160, 598 150, 598 120 L 588 134 C 586 142, 580 146, 570 146 L 570 108 L 562 84 L 554 108 L 554 146 C 544 146, 538 142, 536 134 Z" fill="#e0283a" stroke="#1d1d1f" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M 196 287 C 205 330, 214 370, 226 404" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 452 292 C 490 304, 520 306, 552 302" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="228" cy="412" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="223" cy="406" rx="6.4" ry="3.5" transform="rotate(-30 223 406)" fill="#fff" opacity=".3"/>
+  <circle cx="562" cy="302" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="557" cy="296" rx="6.4" ry="3.5" transform="rotate(-30 557 296)" fill="#fff" opacity=".3"/>
+  <text x="380" y="540" text-anchor="middle" font-size="54" font-weight="900" font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', 'Segoe Print', cursive, sans-serif" fill="#e0283a" stroke="#fff" stroke-width="12" stroke-linejoin="round" paint-order="stroke">Hoy me porto mal</text>
+</svg>

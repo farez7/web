@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 -100 660 660" width="512" height="512" role="img" aria-label="Flork llorando: Se acabaron los dulces">
+  <title>Flork llorando: Se acabaron los dulces</title>
+  <defs><clipPath id="bodyClip"><path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z"/></clipPath></defs>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484 Z" fill="#fff"/>
+  <g clip-path="url(#bodyClip)" fill="#e3e3e8">
+    <path d="M 264 52 C 205 82, 166 152, 154 236 C 142 320, 146 410, 154 520 L 214 520 C 196 420, 189 330, 197 250 C 205 172, 228 106, 264 52 Z"/>
+    <path d="M 266 150 C 285 174, 330 184, 390 183 C 430 182, 456 173, 474 158 L 474 194 C 440 210, 380 212, 330 204 C 298 198, 278 182, 266 160 Z"/>
+  </g>
+  <path d="M 152 484 C 142 420, 138 350, 142 290 C 146 200, 175 120, 230 72 C 262 45, 300 33, 340 34 C 390 35, 438 56, 462 92 C 474 110, 480 132, 478 148 C 476 162, 468 172, 461 180 C 455 190, 456 210, 461 228 C 465 242, 468 252, 471 262 C 480 330, 488 400, 494 484" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 316 108 L 342 120 L 316 132" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 456 112 L 430 124 L 456 136" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 318 132 C 316 150, 312 166, 308 178 L 334 180 C 334 166, 336 150, 340 132 Z M 290 214 C 286 230, 284 244, 282 258 L 310 258 C 310 244, 312 230, 314 214 Z" fill="#7cc8ff" stroke="#1d1d1f" stroke-width="4" stroke-linejoin="round" opacity=".95"/>
+  <path d="M 434 136 C 436 150, 438 162, 440 176 L 462 172 C 460 160, 458 148, 456 136 Z M 444 212 C 448 226, 452 240, 456 254 L 482 250 C 476 236, 472 222, 468 208 Z" fill="#7cc8ff" stroke="#1d1d1f" stroke-width="4" stroke-linejoin="round" opacity=".95"/>
+  <defs><clipPath id="mouthClip"><path d="M 302 196 C 320 150, 440 148, 460 190 C 420 202, 340 206, 302 196 Z"/></clipPath></defs>
+  <path d="M 302 196 C 320 150, 440 148, 460 190 C 420 202, 340 206, 302 196 Z" fill="#4a1620"/>
+  <ellipse cx="382" cy="204" rx="38" ry="16" fill="#f06a80" clip-path="url(#mouthClip)"/>
+  <path d="M 302 196 C 320 150, 440 148, 460 190 C 420 202, 340 206, 302 196 Z" fill="none" stroke="#1d1d1f" stroke-width="6.5" stroke-linejoin="round"/>
+  <defs><radialGradient id="pgp380420" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ffab45"/><stop offset="1" stop-color="#e2650f"/></radialGradient></defs>
+  <ellipse cx="380" cy="420" rx="74" ry="62.2" fill="url(#pgp380420)" stroke="#1d1d1f" stroke-width="7"/>
+  <path d="M 339.3 360.8 Q 316.9 420 339.3 479.2" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 365.2 360.8 Q 357.1 420 365.2 479.2" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 394.8 360.8 Q 402.9 420 394.8 479.2" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 420.7 360.8 Q 443.1 420 420.7 479.2" fill="none" stroke="#c2540c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="380" cy="374.1" rx="51.8" ry="12.6" fill="#3b1a08" stroke="#1d1d1f" stroke-width="5"/>
+  <path d="M 346 397.8 L 365.2 397.8 L 355.6 415.6 Z M 414 397.8 L 394.8 397.8 L 404.4 415.6 Z" fill="#3b1a08"/>
+  <path d="M 357.8 448.1 Q 380 428.9 402.2 448.1" fill="none" stroke="#3b1a08" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 331.2 375.6 C 335.6 309, 424.4 309, 428.8 375.6" fill="none" stroke="#1d1d1f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 196 287 C 230 330, 268 356, 306 370" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 452 292 C 452 326, 450 352, 446 366" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="316" cy="374" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="311" cy="368" rx="6.4" ry="3.5" transform="rotate(-30 311 368)" fill="#fff" opacity=".3"/>
+  <circle cx="444" cy="376" r="16" fill="#2a2a2f" stroke="#1d1d1f" stroke-width="5"/><ellipse cx="439" cy="370" rx="6.4" ry="3.5" transform="rotate(-30 439 370)" fill="#fff" opacity=".3"/>
+  <text x="380" y="540" text-anchor="middle" font-size="50" font-weight="900" font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', 'Segoe Print', cursive, sans-serif" fill="#2a7fd4" stroke="#fff" stroke-width="12" stroke-linejoin="round" paint-order="stroke">Se acabaron los dulces</text>
+</svg>
