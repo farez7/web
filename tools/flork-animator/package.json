@@ -1,0 +1,8 @@
+{
+  "name": "flork-animator",
+  "private": true,
+  "description": "Analiza un SVG, decide qué animar y genera un Lottie JSON de 3 s en bucle, verificado píxel a píxel.",
+  "bin": { "flork-animator": "animate.js" },
+  "scripts": { "animate": "node animate.js" },
+  "dependencies": { "playwright": "^1.56.1" }
+}
