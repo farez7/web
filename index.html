@@ -17,10 +17,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261026">
+  <link rel="stylesheet" href="css/style.css?v=20261026b">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+
+  <!-- ========== BIENVENIDA: el clic en "Enter" activa la música ========== -->
+  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Welcome to Jh Company">
+    <div class="intro-box">
+      <div class="intro-logo">
+        <span class="intro-ring" aria-hidden="true"></span>
+        <img src="assets/img/logo.png" alt="" width="512" height="512">
+      </div>
+      <p class="intro-name">Jh <b>Company</b></p>
+      <p class="intro-sub">Android apps · Design · Motion</p>
+      <button class="intro-enter" type="button" data-enter="music">
+        <span class="intro-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        Enter
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </button>
+      <p class="intro-hint">🎧 Best with sound on</p>
+      <button class="intro-quiet" type="button" data-enter="quiet">Enter without music</button>
+    </div>
+  </div>
 
   <!-- Fondo 3D: estrellas, piso y luces -->
   <div class="world" aria-hidden="true">
@@ -384,10 +403,10 @@
   </div>
   <div class="yt-decks" id="yt-decks" aria-hidden="true"></div>
 
-  <script src="js/config.js?v=20261026"></script>
+  <script src="js/config.js?v=20261026b"></script>
   <script src="js/vendor/lottie_light.min.js?v=5.12.2"></script>
-  <script src="js/icons.js?v=20261026"></script>
-  <script src="js/main.js?v=20261026"></script>
-  <script src="js/music.js?v=20261026"></script>
+  <script src="js/icons.js?v=20261026b"></script>
+  <script src="js/main.js?v=20261026b"></script>
+  <script src="js/music.js?v=20261026b"></script>
 </body>
 </html>

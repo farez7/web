@@ -18,6 +18,7 @@ window.JH_CONFIG = {
     start: 80,                // inicio del fragmento en segundos (1:20)
     end: 135,                 // final del fragmento en segundos (2:15)
     volume: 70,               // volumen de 0 a 100
-    fade: 3                   // segundos de fundido al volver al inicio
+    fade: 3,                  // segundos de fundido al volver al inicio
+    intro: true               // pantalla de bienvenida: el clic en "Enter" activa la música
   }
 };

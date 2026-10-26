@@ -41,7 +41,10 @@
 
   let muted = store.get('muted') === '1';
   let userPaused = store.get('paused') === '1';
-  let phase = 'loading';   // loading · waiting · starting · playing · paused · off
+  // Con la pantalla de bienvenida, la música espera al botón "Enter"
+  let introPending = document.documentElement.classList.contains('intro-open');
+  let wantStart = false;   // hubo un clic antes de que YouTube estuviera listo
+  let phase = 'loading';   // loading · idle · waiting · starting · playing · paused · off
   let single = !canFade;   // true = un solo reproductor (sin fundido cruzado)
   let cur = 0;             // reproductor que suena ahora
   let xf = null;           // fundido cruzado en curso
@@ -79,8 +82,7 @@
   function render() {
     ui.dataset.state = phase;
     ui.dataset.muted = String(muted);
-    const on = phase === 'playing' || phase === 'starting';
-    playBtn.setAttribute('aria-label', on ? 'Pause music' : 'Play music');
+    playBtn.setAttribute('aria-label', phase === 'playing' ? 'Pause music' : 'Play music');
     muteBtn.setAttribute('aria-label', muted ? 'Unmute music' : 'Mute music');
     muteBtn.setAttribute('aria-pressed', String(muted));
   }
@@ -135,6 +137,14 @@
     if (frame) { frame.tabIndex = -1; frame.title = 'Background music'; }
     if (d !== decks[0]) return;
     ui.hidden = false;
+    if (introPending) {
+      // queda cargada en silencio hasta que el visitante pulse "Enter"
+      phase = 'idle';
+      render();
+      prime(d);
+      return;
+    }
+    if (wantStart && !userPaused) { play(false); return; } // ya hubo un clic: el navegador lo permite
     if (userPaused) {
       phase = 'paused';
       render();
@@ -157,7 +167,7 @@
     if (!d || !d.ready || phase === 'off') return;
     clearTimeout(tryTimer);
     clearTimeout(verifyTimer);
-    disarm();
+    wantStart = false;
     d.priming = false;
     d.want = true;
     phase = 'starting';
@@ -206,10 +216,12 @@
     GESTURES.forEach((t) => removeEventListener(t, gesture, true));
   }
   function gesture(e) {
-    if (phase !== 'waiting' || muted || userPaused) { disarm(); return; }
-    if (e.target && e.target.closest && e.target.closest('#music')) return; // los botones de música deciden solos
+    if (muted || userPaused || phase === 'off' || phase === 'playing') { disarm(); return; }
+    if (e.target && e.target.closest && e.target.closest('#music, #intro')) return; // esos botones deciden solos
     if (e.type === 'keydown' && (e.key === 'Escape' || e.altKey || e.ctrlKey || e.metaKey)) return;
-    play(false);
+    const d = decks[cur];
+    if (!d || !d.ready) { wantStart = true; return; } // YouTube aún carga: sonará en cuanto esté listo
+    if (phase === 'waiting' || phase === 'idle' || (phase === 'starting' && d.state !== PLAYING)) play(false);
   }
 
   // Deja un reproductor pausado en el inicio del fragmento, listo para sonar
@@ -249,6 +261,7 @@
 
     if (s === PLAYING && phase === 'starting') {
       clearTimeout(tryTimer);
+      disarm();
       phase = 'playing';
       fadeIn = { d, t0: performance.now(), dur: 1500 };
       render();
@@ -404,18 +417,38 @@
 
   /* ---------- Botones ---------- */
   playBtn.addEventListener('click', () => {
-    if (phase === 'off' || phase === 'loading') return;
-    if (phase === 'playing' || phase === 'starting') {
+    if (phase === 'off') return;
+    if (phase === 'playing') {
       userPaused = true;
       store.set('paused', '1');
       pauseNow();
       phase = 'paused';
       render();
-    } else {
-      userPaused = false;
-      store.set('paused', '0');
-      play(false);
+      return;
     }
+    // Si todavía no suena (cargando, esperando o intentando), este clic la arranca
+    userPaused = false;
+    store.set('paused', '0');
+    const d = decks[cur];
+    if (!d || !d.ready) { wantStart = true; return; }
+    play(false);
+  });
+
+  // Botones de la bienvenida (main.js avisa con "jh:enter" dentro del mismo clic)
+  document.addEventListener('jh:enter', (e) => {
+    introPending = false;
+    if (e.detail && e.detail.music === false) {
+      userPaused = true; // solo en esta visita; el botón de música la puede activar
+      if (phase === 'idle' || phase === 'waiting') { phase = 'paused'; render(); }
+      return;
+    }
+    userPaused = false;
+    store.set('paused', '0');
+    if (muted) { muted = false; store.set('muted', '0'); }
+    if (phase === 'off') return;
+    const d = decks[cur];
+    if (d && d.ready) play(false);
+    else { wantStart = true; arm(); }
   });
 
   muteBtn.addEventListener('click', () => {
@@ -427,7 +460,7 @@
       const onAir = d.want && (d === decks[cur] || (xf && d === xf.to));
       call(d, muted || !onAir ? 'mute' : 'unMute');
     });
-    if (!muted && phase === 'waiting' && !userPaused) play(false);
+    if (!muted && (phase === 'waiting' || phase === 'idle') && !userPaused && !introPending) play(false);
     render();
   });
 
@@ -446,6 +479,7 @@
 
   render();
   setInterval(tick, 50);
-  if (document.readyState === 'complete') loadApi();
-  else addEventListener('load', loadApi);
+  // Sin bienvenida: el primer clic, toque o tecla en cualquier parte arranca la música
+  if (!introPending && !userPaused && !muted) arm();
+  loadApi(); // YouTube empieza a cargar de inmediato para estar listo al primer clic
 })();

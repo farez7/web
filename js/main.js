@@ -42,6 +42,13 @@
   const screens = $$('.screen');
   if (!screens.length || !root.classList.contains('fp')) return;
 
+  /* ---------- Bienvenida: el clic en "Enter" activa la música ---------- */
+  const intro = $('#intro');
+  const musicCfg = cfg.music || {};
+  let introOpen = !!(intro && musicCfg.youtubeId && musicCfg.intro !== false);
+  if (intro && !introOpen) intro.remove();
+  if (introOpen) root.classList.add('intro-open');
+
   const ids = screens.map((s) => s.id);
   const fits = screens.map((s) => $('.fit', s));
   const navLinks = $$('a[href^="#"]').filter((a) => ids.includes(a.getAttribute('href').slice(1)));
@@ -172,7 +179,7 @@
 
   // Teclado
   addEventListener('keydown', (e) => {
-    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (introOpen || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
     const t = e.target;
     const tag = t && t.tagName ? t.tagName.toLowerCase() : '';
     if (tag === 'input' || tag === 'textarea' || tag === 'select' || (t && t.isContentEditable)) return;
@@ -195,6 +202,7 @@
   addEventListener('wheel', (e) => {
     if (e.ctrlKey) return; // zoom con el trackpad
     e.preventDefault();
+    if (introOpen) return;
     const now = performance.now();
     const gap = now - wheelLast;
     wheelLast = now;
@@ -225,7 +233,7 @@
     if (e.touches.length === 1 && e.cancelable) e.preventDefault();
   }, { passive: false });
   addEventListener('touchend', (e) => {
-    if (!touch || !e.changedTouches.length) return;
+    if (introOpen || !touch || !e.changedTouches.length) return;
     const dx = e.changedTouches[0].clientX - touch.x;
     const dy = e.changedTouches[0].clientY - touch.y;
     const dt = performance.now() - touch.t;
@@ -437,7 +445,27 @@
 
   // Pantalla inicial (por ejemplo index.html#apps abre directo en Apps)
   const first = Math.max(0, ids.indexOf(location.hash.slice(1)));
-  requestAnimationFrame(() => requestAnimationFrame(() => go(first, { keepHash: !location.hash })));
+  const showFirst = () => requestAnimationFrame(() => requestAnimationFrame(() => go(first, { keepHash: !location.hash })));
+
+  if (introOpen) {
+    const enter = (withMusic) => {
+      if (!introOpen) return;
+      introOpen = false;
+      root.classList.remove('intro-open');
+      // music.js escucha este aviso y arranca la música dentro del mismo clic
+      document.dispatchEvent(new CustomEvent('jh:enter', { detail: { music: withMusic } }));
+      intro.classList.add('is-leaving');
+      setTimeout(() => intro.remove(), 1000);
+      showFirst();
+    };
+    intro.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-enter]');
+      if (btn) enter(btn.dataset.enter === 'music');
+    });
+    addEventListener('keydown', (e) => { if (introOpen && e.key === 'Escape') enter(false); });
+  } else {
+    showFirst();
+  }
 
   if (reduce) {
     placeOrbit(0);

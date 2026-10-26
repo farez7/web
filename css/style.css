@@ -477,8 +477,14 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: -.03em; line-heig
 .music-play { background: var(--grad); box-shadow: 0 8px 18px -8px rgba(238, 10, 63, .9); }
 .music-play:hover { background: var(--grad); }
 .music .i-pause, .music .i-muted { display: none; }
-.music[data-state="playing"] .i-play, .music[data-state="starting"] .i-play { display: none; }
-.music[data-state="playing"] .i-pause, .music[data-state="starting"] .i-pause { display: block; }
+.music[data-state="playing"] .i-play { display: none; }
+.music[data-state="playing"] .i-pause { display: block; }
+.music[data-state="starting"] .music-play::before {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px solid transparent; border-top-color: #fff; border-right-color: rgba(255, 255, 255, .5);
+  animation: turn .8s linear infinite;
+}
+@keyframes turn { to { transform: rotate(360deg); } }
 .music[data-muted="true"] .i-vol { display: none; }
 .music[data-muted="true"] .i-muted { display: block; }
 .music[data-muted="true"] .music-mute { color: var(--red); }
@@ -498,6 +504,49 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: -.03em; line-heig
 }
 .music-tip::after { content: ''; position: absolute; right: 22px; top: 100%; border: 7px solid transparent; border-top-color: #fff; }
 .music[data-state="waiting"] .music-tip { opacity: 1; transform: none; }
+
+/* =========================================================
+   BIENVENIDA (el clic en "Enter" activa la música)
+   ========================================================= */
+.intro { display: none; }
+.js .intro {
+  position: fixed; inset: 0; z-index: 60;
+  display: grid; place-items: center; padding: 24px;
+  background:
+    radial-gradient(55% 45% at 50% 42%, rgba(238, 10, 63, .3), transparent 70%),
+    rgba(7, 6, 10, .88);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  transition: opacity .8s ease, visibility 0s linear .8s;
+}
+.js .intro.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+.intro-box { display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform .9s var(--ease-io), opacity .6s ease; }
+.intro.is-leaving .intro-box { transform: scale(1.25); opacity: 0; }
+.intro-logo { position: relative; width: clamp(110px, 18vh, 160px); aspect-ratio: 1; margin-bottom: clamp(20px, 4vh, 34px); animation: hover 4s ease-in-out infinite; }
+.intro-logo img { position: relative; width: 100%; height: 100%; filter: drop-shadow(0 18px 40px rgba(238, 10, 63, .6)); }
+.intro-ring { position: absolute; inset: -24%; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, .2); animation: turn 24s linear infinite; }
+.intro-ring::after { content: ''; position: absolute; inset: 12%; border-radius: 50%; background: radial-gradient(circle, rgba(238, 10, 63, .5), transparent 70%); }
+@keyframes hover { 50% { transform: translateY(-10px); } }
+.intro-name { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 6vw, 2.8rem); letter-spacing: -.03em; line-height: 1.1; }
+.intro-name b { font-weight: 500; color: var(--muted); }
+.intro-sub { margin-top: 8px; color: var(--muted); font-size: 15px; letter-spacing: .04em; }
+.intro-enter {
+  position: relative; margin-top: clamp(24px, 5vh, 38px);
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 30px 16px 26px; border-radius: 999px;
+  background: var(--grad); color: #fff; font-weight: 700; font-size: 18px; letter-spacing: .02em;
+  box-shadow: 0 18px 40px -14px rgba(238, 10, 63, .9);
+  transition: transform .3s var(--ease), box-shadow .3s;
+}
+.intro-enter:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 24px 50px -14px rgba(238, 10, 63, 1); }
+.intro-enter::after { content: ''; position: absolute; inset: 0; border-radius: inherit; animation: ping 1.8s ease-out infinite; }
+.intro-eq { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
+.intro-eq i { width: 3px; height: 100%; border-radius: 2px; background: #fff; transform-origin: 50% 100%; animation: eq .9s ease-in-out infinite; }
+.intro-eq i:nth-child(2) { animation-delay: -.35s; }
+.intro-eq i:nth-child(3) { animation-delay: -.6s; }
+.intro-eq i:nth-child(4) { animation-delay: -.15s; }
+.intro-hint { margin-top: 18px; color: var(--muted); font-size: 14px; }
+.intro-quiet { margin-top: 6px; padding: 6px 10px; color: var(--dim); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; transition: color .25s; }
+.intro-quiet:hover { color: var(--text); }
 
 /* Reproductores de YouTube (invisibles, solo audio) */
 .yt-decks { position: fixed; left: 0; bottom: 0; z-index: -1; display: flex; width: 400px; height: 200px; opacity: 0; pointer-events: none; overflow: hidden; }
