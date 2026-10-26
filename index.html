@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fp">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jh Company · Android Apps</title>
   <meta name="description" content="Jh Company, independent Android app developer: QR Generator, Stickers, Wallpapers, Chat, Quiz, Ringtones and Nick Name.">
   <meta name="theme-color" content="#07060a">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Jh Company · Android Apps">
   <meta property="og:description" content="QR, stickers, wallpapers, chat, quiz, ringtone and nickname apps made by an independent developer.">
@@ -21,361 +22,372 @@
 </head>
 <body>
 
-  <!-- Background -->
-  <div class="bg" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
-  <div class="cursor-glow" aria-hidden="true"></div>
+  <!-- Fondo 3D: estrellas, piso y luces -->
+  <div class="world" aria-hidden="true">
+    <canvas id="stars"></canvas>
+    <div class="floor"></div>
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
 
-  <!-- ========== NAVIGATION ========== -->
-  <header class="nav" id="nav">
-    <div class="container nav-inner">
+  <!-- ========== BARRA SUPERIOR ========== -->
+  <header class="topbar">
+    <div class="topbar-inner">
       <a href="#home" class="brand" aria-label="Jh Company, home">
         <img src="assets/img/logo.png" alt="" width="40" height="40">
         <span>Jh <b>Company</b></span>
       </a>
-
-      <nav aria-label="Main">
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#apps">Apps</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="privacy.html">Privacy</a></li>
-        </ul>
+      <nav class="top-links" aria-label="Main">
+        <a href="#home">Home</a>
+        <a href="#apps">Apps</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
       </nav>
-
       <a class="nav-mail" data-email href="#contact" aria-label="Send an email">
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 1 9 7 9-7"/></svg>
         <span>Email</span>
       </a>
-
-      <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
-        <span></span><span></span>
-      </button>
     </div>
   </header>
 
-  <main>
-    <!-- ========== 3D HERO ========== -->
-    <section class="hero" id="home">
-      <canvas id="stars" aria-hidden="true"></canvas>
-      <div class="floor" aria-hidden="true"></div>
-      <div class="hero-word" aria-hidden="true" data-depth="-14">JH COMPANY</div>
+  <main class="screens">
 
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <span class="eyebrow">Independent developer</span>
-          <h1 class="hero-title">Apps that give your Android <span class="grad-text">style</span></h1>
-          <p class="hero-sub">Hi, I'm <strong>Jh Company</strong>. I design, animate and code apps to create QR codes, customize your phone, chat, play and much more.</p>
-
-          <div class="hero-actions">
-            <a class="btn-play" data-playstore href="#apps">
-              <svg class="gp-logo" viewBox="0 0 24 26" width="26" height="28" aria-hidden="true">
-                <path fill="#2ea8ff" d="M2 1 13 13 2 25Z"/>
-                <path fill="#28d17c" d="M2 1 17 10 13 13Z"/>
-                <path fill="#ffc400" d="M17 10 22 13 17 16 13 13Z"/>
-                <path fill="#ff3a44" d="M2 25 13 13 17 16Z"/>
-              </svg>
-              <span class="btn-play-text"><small>Get it on</small><strong>Google Play</strong></span>
-            </a>
-            <a href="#apps" class="btn btn-ghost">
-              See my apps
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m-6-6 6 6 6-6"/></svg>
-            </a>
-          </div>
-
-          <ul class="hero-stats">
-            <li><strong>7</strong><span>Apps</span></li>
-            <li><strong>8</strong><span>Tools</span></li>
-            <li><strong>100%</strong><span>Indie</span></li>
-          </ul>
-        </div>
-
-        <!-- 3D scene: extruded logo + orbiting apps -->
-        <div class="hero-visual" aria-hidden="true">
-          <div class="scene" id="scene">
-            <div class="halo" data-depth="-22"></div>
-            <div class="orbit-path" data-depth="-8"></div>
-            <div class="logo3d" id="logo3d"><img src="assets/img/logo.png" alt="" width="512" height="512"></div>
-            <div class="orbit" id="orbit">
-              <div class="orbit-item" style="--accent:#ff4a3d"><div class="lottie" data-lottie="qr"></div></div>
-              <div class="orbit-item" style="--accent:#ffb547"><div class="lottie" data-lottie="stickers"></div></div>
-              <div class="orbit-item" style="--accent:#b86bff"><div class="lottie" data-lottie="wallpapers"></div></div>
-              <div class="orbit-item" style="--accent:#3db2ff"><div class="lottie" data-lottie="chat"></div></div>
-              <div class="orbit-item" style="--accent:#ffd23d"><div class="lottie" data-lottie="quiz"></div></div>
-              <div class="orbit-item" style="--accent:#2ee6c5"><div class="lottie" data-lottie="ringtone"></div></div>
-              <div class="orbit-item" style="--accent:#ff5fa2"><div class="lottie" data-lottie="nickname"></div></div>
-            </div>
-            <span class="spark sp1" data-depth="34"></span>
-            <span class="spark sp2" data-depth="48"></span>
-            <span class="spark sp3" data-depth="26"></span>
-          </div>
-        </div>
-      </div>
-
-      <a href="#apps" class="scroll-hint" aria-label="Scroll to the apps"><span></span></a>
-    </section>
-
-    <!-- Ribbons -->
-    <div class="marquee-wrap" aria-hidden="true">
-      <div class="marquee m1">
-        <div class="marquee-track">
-          <span>QR Generator</span><span>Stickers</span><span>Wallpapers</span><span>Chat</span><span>Quiz</span><span>Ringtones</span><span>Nick Name</span>
-          <span>QR Generator</span><span>Stickers</span><span>Wallpapers</span><span>Chat</span><span>Quiz</span><span>Ringtones</span><span>Nick Name</span>
-        </div>
-      </div>
-      <div class="marquee m2">
-        <div class="marquee-track">
-          <span>Android Studio</span><span>Java</span><span>After Effects</span><span>Illustrator</span><span>Photoshop</span><span>HTML</span><span>CSS</span><span>JavaScript</span>
-          <span>Android Studio</span><span>Java</span><span>After Effects</span><span>Illustrator</span><span>Photoshop</span><span>HTML</span><span>CSS</span><span>JavaScript</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== APPS ========== -->
-    <section class="section" id="apps">
-      <span class="deco ring-deco r1" data-speed="0.18" aria-hidden="true"></span>
-      <span class="deco dot-deco d1" data-speed="-0.12" aria-hidden="true"></span>
-
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow reveal">My apps</span>
-          <h2 class="reveal">Seven apps, <span class="grad-text">one style</span></h2>
-          <p class="lead reveal">Useful tools and apps to have fun and customize your phone. All designed and developed by me.</p>
-        </div>
-
-        <div class="apps-grid" data-stagger>
-          <article class="app-card wide reveal" data-tilt="6" style="--accent:#ff4a3d">
-            <div class="app-icon"><div class="lottie" data-lottie="qr"></div></div>
-            <div class="app-body">
-              <span class="app-cat">Tools</span>
-              <h3>QR Generator</h3>
-              <p>Create QR codes for links, text, Wi-Fi networks and contacts in seconds, then save or share them instantly.</p>
-            </div>
-            <span class="app-num" aria-hidden="true">01</span>
-            <span class="glare" aria-hidden="true"></span>
-          </article>
-
-          <article class="app-card reveal" data-tilt="9" style="--accent:#ffb547">
-            <div class="app-icon"><div class="lottie" data-lottie="stickers"></div></div>
-            <span class="app-cat">Social</span>
-            <h3>Stickers</h3>
-            <p>Fun stickers to express yourself in your favorite chats.</p>
-            <span class="app-num" aria-hidden="true">02</span>
-            <span class="glare" aria-hidden="true"></span>
-          </article>
-
-          <article class="app-card reveal" data-tilt="9" style="--accent:#b86bff">
-            <div class="app-icon"><div class="lottie" data-lottie="wallpapers"></div></div>
-            <span class="app-cat">Personalization</span>
-            <h3>Wallpapers</h3>
-            <p>High-quality wallpapers to give your phone a fresh new look.</p>
-            <span class="app-num" aria-hidden="true">03</span>
-            <span class="glare" aria-hidden="true"></span>
-          </article>
-
-          <article class="app-card reveal" data-tilt="9" style="--accent:#3db2ff">
-            <div class="app-icon"><div class="lottie" data-lottie="chat"></div></div>
-            <span class="app-cat">Communication</span>
-            <h3>Chat</h3>
-            <p>Talk and meet new people in a simple, fast way.</p>
-            <span class="app-num" aria-hidden="true">04</span>
-            <span class="glare" aria-hidden="true"></span>
-          </article>
-
-          <article class="app-card reveal" data-tilt="9" style="--accent:#ffd23d">
-            <div class="app-icon"><div class="lottie" data-lottie="quiz"></div></div>
-            <span class="app-cat">Games</span>
-            <h3>Quiz</h3>
-            <p>Test your knowledge with questions and challenges.</p>
-            <span class="app-num" aria-hidden="true">05</span>
-            <span class="glare" aria-hidden="true"></span>
-          </article>
-
-          <article class="app-card reveal" data-tilt="9" style="--accent:#2ee6c5">
-            <div class="app-icon"><div class="lottie" data-lottie="ringtone"></div></div>
-            <span class="app-cat">Music</span>
-            <h3>Ringtones</h3>
-            <p>Ringtones, notification sounds and alarms for your phone.</p>
-            <span class="app-num" aria-hidden="true">06</span>
-            <span class="glare" aria-hidden="true"></span>
-          </article>
-
-          <article class="app-card reveal" data-tilt="9" style="--accent:#ff5fa2">
-            <div class="app-icon"><div class="lottie" data-lottie="nickname"></div></div>
-            <span class="app-cat">Gaming</span>
-            <h3>Nick Name</h3>
-            <p>Create stylish names with fancy letters and symbols for your games and socials.</p>
-            <span class="app-num" aria-hidden="true">07</span>
-            <span class="glare" aria-hidden="true"></span>
-          </article>
-        </div>
-
-        <div class="apps-cta reveal">
-          <div>
-            <h3>Find them all on Google Play</h3>
-            <p>Download my apps on your Android phone from the official store.</p>
-          </div>
-          <a class="btn-play" data-playstore href="#apps">
-            <svg class="gp-logo" viewBox="0 0 24 26" width="26" height="28" aria-hidden="true">
-              <path fill="#2ea8ff" d="M2 1 13 13 2 25Z"/>
-              <path fill="#28d17c" d="M2 1 17 10 13 13Z"/>
-              <path fill="#ffc400" d="M17 10 22 13 17 16 13 13Z"/>
-              <path fill="#ff3a44" d="M2 25 13 13 17 16Z"/>
-            </svg>
-            <span class="btn-play-text"><small>Get it on</small><strong>Google Play</strong></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== ABOUT ========== -->
-    <section class="section about" id="about">
-      <span class="deco ring-deco r2" data-speed="-0.16" aria-hidden="true"></span>
-
-      <div class="container about-grid">
-        <div class="photo-wrap reveal">
-          <div class="photo-card" data-tilt="8">
-            <div class="photo-back" aria-hidden="true"></div>
-            <div class="photo-frame">
-              <img src="assets/img/foto.jpg" alt="Photo of the Jh Company developer" width="625" height="781" loading="lazy">
-            </div>
-            <div class="float-badge fb-1"><span class="live-dot"></span>Android Dev</div>
-            <div class="float-badge fb-2"><img src="assets/img/logo.png" alt="" width="26" height="26">Jh Company</div>
-            <div class="float-badge fb-3">✦ Design + Code</div>
-          </div>
-        </div>
-
-        <div class="about-copy">
-          <span class="eyebrow reveal">About me</span>
-          <h2 class="reveal">One developer, <span class="grad-text">many ideas</span></h2>
-          <p class="lead reveal">I'm the creator behind <strong>Jh Company</strong>, an independent Android app developer.</p>
-          <p class="reveal">I handle the whole process: the idea, the icon and screen design, the animations and the code. My goal is to build simple, fast and beautiful apps that people enjoy using every day.</p>
-          <ul class="about-list reveal">
-            <li>Android app development with Android Studio and Java</li>
-            <li>Logo, icon and interface design</li>
-            <li>Animation and motion graphics</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== PORTFOLIO / SKILLS ========== -->
-    <!-- Change any data-level value to update its percentage -->
-    <section class="section" id="portfolio">
-      <span class="deco dot-deco d2" data-speed="0.14" aria-hidden="true"></span>
-
-      <div class="container">
-        <div class="section-head center">
-          <span class="eyebrow reveal">Portfolio</span>
-          <h2 class="reveal">Tools I <span class="grad-text">master</span></h2>
-          <p class="lead reveal">From design to code: these are the tools I use to bring every app to life.</p>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-side" data-stagger>
-            <article class="skill-feature reveal" data-tilt="6">
-              <div class="ring" data-level="60">
-                <svg viewBox="0 0 120 120" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stop-color="#ff5a3d"/>
-                      <stop offset="1" stop-color="#ee0a3f"/>
-                    </linearGradient>
-                  </defs>
-                  <circle class="ring-track" cx="60" cy="60" r="54"/>
-                  <circle class="ring-bar" cx="60" cy="60" r="54"/>
+    <!-- ========== 1 · INICIO ========== -->
+    <section class="screen" id="home" tabindex="-1" aria-label="Home">
+      <div class="bg-word layer" style="--d:.35" data-depth="-14" aria-hidden="true"><span>JH COMPANY</span></div>
+      <div class="fit">
+        <div class="wrap home">
+          <div class="home-copy">
+            <span class="eyebrow layer" style="--d:.5">Independent developer</span>
+            <h1 class="home-title layer" style="--d:.7">Apps that give your Android <span class="grad-text">style</span></h1>
+            <p class="home-sub layer" style="--d:.9">Hi, I'm <strong>Jh Company</strong>. I design, animate and code apps to create QR codes, customize your phone, chat, play and much more.</p>
+            <div class="home-actions layer" style="--d:1.1">
+              <a class="btn-play" data-playstore href="#apps">
+                <svg class="gp-logo" viewBox="0 0 24 26" width="26" height="28" aria-hidden="true">
+                  <path fill="#2ea8ff" d="M2 1 13 13 2 25Z"/>
+                  <path fill="#28d17c" d="M2 1 17 10 13 13Z"/>
+                  <path fill="#ffc400" d="M17 10 22 13 17 16 13 13Z"/>
+                  <path fill="#ff3a44" d="M2 25 13 13 17 16Z"/>
                 </svg>
-                <div class="ring-value"><span class="count">0</span><small>%</small></div>
-              </div>
-              <div>
-                <h3>Android Studio</h3>
-                <p>Android app development</p>
-              </div>
-            </article>
-
-            <article class="skill-feature reveal" data-tilt="6">
-              <div class="ring" data-level="50">
-                <svg viewBox="0 0 120 120" aria-hidden="true">
-                  <circle class="ring-track" cx="60" cy="60" r="54"/>
-                  <circle class="ring-bar" cx="60" cy="60" r="54"/>
-                </svg>
-                <div class="ring-value"><span class="count">0</span><small>%</small></div>
-              </div>
-              <div>
-                <h3>Java</h3>
-                <p>App logic and features</p>
-              </div>
-            </article>
+                <span class="btn-play-text"><small>Get it on</small><strong>Google Play</strong></span>
+              </a>
+              <a href="#apps" class="btn btn-ghost">
+                See my apps
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+              </a>
+            </div>
+            <ul class="home-stats layer" style="--d:1.3">
+              <li><strong>7</strong><span>Apps</span></li>
+              <li><strong>8</strong><span>Tools</span></li>
+              <li><strong>100%</strong><span>Indie</span></li>
+            </ul>
           </div>
 
-          <div class="tools" data-stagger>
-            <article class="tool reveal" data-tilt="10" data-level="70" style="--c:#ff6a3d">
-              <span class="tool-mono">&lt;/&gt;</span>
-              <div><h3>HTML</h3><p>Website structure</p></div>
-            </article>
-            <article class="tool reveal" data-tilt="10" data-level="70" style="--c:#4c8bf5">
-              <span class="tool-mono">{ }</span>
-              <div><h3>CSS</h3><p>Web styling, layout and animation</p></div>
-            </article>
-            <article class="tool reveal" data-tilt="10" data-level="40" style="--c:#f7df1e">
-              <span class="tool-mono">JS</span>
-              <div><h3>JavaScript</h3><p>Web interactivity and logic</p></div>
-            </article>
-            <article class="tool reveal" data-tilt="10" data-level="80" style="--c:#a78bff">
-              <span class="tool-mono">Ae</span>
-              <div><h3>After Effects</h3><p>Animation and motion graphics</p></div>
-            </article>
-            <article class="tool reveal" data-tilt="10" data-level="65" style="--c:#ff9a00">
-              <span class="tool-mono">Ai</span>
-              <div><h3>Illustrator</h3><p>Logos, icons and vectors</p></div>
-            </article>
-            <article class="tool reveal" data-tilt="10" data-level="45" style="--c:#31a8ff">
-              <span class="tool-mono">Ps</span>
-              <div><h3>Photoshop</h3><p>Image editing and retouching</p></div>
-            </article>
+          <div class="home-visual layer" style="--d:1.6" aria-hidden="true">
+            <div class="scene" id="scene">
+              <div class="halo" data-depth="-22"></div>
+              <div class="orbit-path" data-depth="-8"></div>
+              <div class="logo3d" id="logo3d"><img src="assets/img/logo.png" alt="" width="512" height="512"></div>
+              <div class="orbit" id="orbit">
+                <div class="orbit-item" style="--accent:#ff4a3d"><div class="lottie" data-lottie="qr"></div></div>
+                <div class="orbit-item" style="--accent:#ffb547"><div class="lottie" data-lottie="stickers"></div></div>
+                <div class="orbit-item" style="--accent:#b86bff"><div class="lottie" data-lottie="wallpapers"></div></div>
+                <div class="orbit-item" style="--accent:#3db2ff"><div class="lottie" data-lottie="chat"></div></div>
+                <div class="orbit-item" style="--accent:#ffd23d"><div class="lottie" data-lottie="quiz"></div></div>
+                <div class="orbit-item" style="--accent:#2ee6c5"><div class="lottie" data-lottie="ringtone"></div></div>
+                <div class="orbit-item" style="--accent:#ff5fa2"><div class="lottie" data-lottie="nickname"></div></div>
+              </div>
+              <span class="spark sp1" data-depth="34"></span>
+              <span class="spark sp2" data-depth="48"></span>
+              <span class="spark sp3" data-depth="26"></span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ========== CONTACT ========== -->
-    <section class="section" id="contact">
-      <div class="container">
-        <div class="contact-card reveal">
-          <img class="contact-logo" src="assets/img/logo.png" alt="" data-speed="0.1" width="512" height="512" aria-hidden="true">
-          <span class="eyebrow">Contact</span>
-          <h2>Have an idea, a suggestion or found a bug?</h2>
-          <p class="lead">Send me an email and I'll get back to you as soon as I can.</p>
-          <a class="btn btn-primary btn-lg" data-email href="#contact">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 1 9 7 9-7"/></svg>
-            Email me
-          </a>
-          <p class="contact-mail" data-email-text></p>
-          <a class="link-arrow" href="privacy.html">Privacy policy <span aria-hidden="true">→</span></a>
+    <!-- ========== 2 · APPS ========== -->
+    <section class="screen" id="apps" tabindex="-1" aria-label="Apps">
+      <div class="bg-word layer" style="--d:.35" data-depth="-14" aria-hidden="true"><span>APPS</span></div>
+      <div class="fit">
+        <div class="wrap">
+          <header class="screen-head layer" style="--d:.6">
+            <span class="eyebrow">My apps</span>
+            <h2>Seven apps, <span class="grad-text">one style</span></h2>
+          </header>
+
+          <div class="apps-grid">
+            <div class="cell layer" style="--d:1">
+              <article class="app" data-tilt="9" style="--accent:#ff4a3d">
+                <div class="app-icon"><div class="lottie" data-lottie="qr"></div></div>
+                <div class="app-text">
+                  <span class="app-cat">Tools</span>
+                  <h3>QR Generator</h3>
+                  <p>Create QR codes for links, text, Wi-Fi and contacts.</p>
+                </div>
+                <span class="glare" aria-hidden="true"></span>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.1">
+              <article class="app" data-tilt="9" style="--accent:#ffb547">
+                <div class="app-icon"><div class="lottie" data-lottie="stickers"></div></div>
+                <div class="app-text">
+                  <span class="app-cat">Social</span>
+                  <h3>Stickers</h3>
+                  <p>Fun stickers to express yourself in your chats.</p>
+                </div>
+                <span class="glare" aria-hidden="true"></span>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.2">
+              <article class="app" data-tilt="9" style="--accent:#b86bff">
+                <div class="app-icon"><div class="lottie" data-lottie="wallpapers"></div></div>
+                <div class="app-text">
+                  <span class="app-cat">Personalization</span>
+                  <h3>Wallpapers</h3>
+                  <p>HD wallpapers to give your phone a fresh look.</p>
+                </div>
+                <span class="glare" aria-hidden="true"></span>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.3">
+              <article class="app" data-tilt="9" style="--accent:#3db2ff">
+                <div class="app-icon"><div class="lottie" data-lottie="chat"></div></div>
+                <div class="app-text">
+                  <span class="app-cat">Communication</span>
+                  <h3>Chat</h3>
+                  <p>Talk and meet new people, simple and fast.</p>
+                </div>
+                <span class="glare" aria-hidden="true"></span>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.4">
+              <article class="app" data-tilt="9" style="--accent:#ffd23d">
+                <div class="app-icon"><div class="lottie" data-lottie="quiz"></div></div>
+                <div class="app-text">
+                  <span class="app-cat">Games</span>
+                  <h3>Quiz</h3>
+                  <p>Test your knowledge with questions and challenges.</p>
+                </div>
+                <span class="glare" aria-hidden="true"></span>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.5">
+              <article class="app" data-tilt="9" style="--accent:#2ee6c5">
+                <div class="app-icon"><div class="lottie" data-lottie="ringtone"></div></div>
+                <div class="app-text">
+                  <span class="app-cat">Music</span>
+                  <h3>Ringtones</h3>
+                  <p>Ringtones, notification sounds and alarms.</p>
+                </div>
+                <span class="glare" aria-hidden="true"></span>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.6">
+              <article class="app" data-tilt="9" style="--accent:#ff5fa2">
+                <div class="app-icon"><div class="lottie" data-lottie="nickname"></div></div>
+                <div class="app-text">
+                  <span class="app-cat">Gaming</span>
+                  <h3>Nick Name</h3>
+                  <p>Stylish names with fancy letters and symbols.</p>
+                </div>
+                <span class="glare" aria-hidden="true"></span>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.7">
+              <a class="app app-gp" data-playstore href="#apps" data-tilt="9">
+                <span class="gp-badge">
+                  <svg viewBox="0 0 24 26" width="34" height="36" aria-hidden="true">
+                    <path fill="#2ea8ff" d="M2 1 13 13 2 25Z"/>
+                    <path fill="#28d17c" d="M2 1 17 10 13 13Z"/>
+                    <path fill="#ffc400" d="M17 10 22 13 17 16 13 13Z"/>
+                    <path fill="#ff3a44" d="M2 25 13 13 17 16Z"/>
+                  </svg>
+                </span>
+                <span class="gp-text"><small>Get them <span class="hide-sm">all </span>on</small><strong>Google Play</strong></span>
+                <svg class="gp-arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"/></svg>
+                <span class="glare" aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3 · SOBRE MÍ ========== -->
+    <section class="screen" id="about" tabindex="-1" aria-label="About">
+      <div class="bg-word layer" style="--d:.35" data-depth="-14" aria-hidden="true"><span>ABOUT</span></div>
+      <div class="fit">
+        <div class="wrap about">
+          <div class="photo-wrap layer" style="--d:1.5">
+            <div class="photo-card" data-tilt="8">
+              <div class="photo-back" aria-hidden="true"></div>
+              <div class="photo-frame">
+                <img src="assets/img/foto.jpg" alt="Photo of the Jh Company developer" width="625" height="781">
+              </div>
+              <div class="float-badge fb-1"><span class="live-dot"></span>Android Dev</div>
+              <div class="float-badge fb-2"><img src="assets/img/logo.png" alt="" width="24" height="24">Jh Company</div>
+            </div>
+          </div>
+
+          <div class="about-copy">
+            <span class="eyebrow layer" style="--d:.6">About me</span>
+            <h2 class="layer" style="--d:.8">One developer, <span class="grad-text">many ideas</span></h2>
+            <p class="lead layer" style="--d:1">I'm the creator behind <strong>Jh Company</strong>, an independent Android app developer. I handle the whole process: the idea, the design, the animations and the code.</p>
+            <ul class="about-list layer" style="--d:1.2">
+              <li>Android apps with Android Studio and Java</li>
+              <li>Logo, icon and interface design</li>
+              <li>Animation and motion graphics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 4 · PORTAFOLIO ========== -->
+    <!-- Cambia data-level para ajustar cada porcentaje -->
+    <section class="screen" id="portfolio" tabindex="-1" aria-label="Portfolio">
+      <div class="bg-word layer" style="--d:.35" data-depth="-14" aria-hidden="true"><span>SKILLS</span></div>
+      <div class="fit">
+        <div class="wrap">
+          <header class="screen-head center layer" style="--d:.6">
+            <span class="eyebrow">Portfolio</span>
+            <h2>Tools I <span class="grad-text">master</span></h2>
+          </header>
+
+          <div class="skills">
+            <div class="cell layer" style="--d:1">
+              <article class="skill" data-tilt="10" style="--c:#3ddc84">
+                <div class="ring" data-level="60"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>Android Studio</h3><p>Android apps</p></div>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.1">
+              <article class="skill" data-tilt="10" style="--c:#f89820">
+                <div class="ring" data-level="50"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>Java</h3><p>App logic</p></div>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.2">
+              <article class="skill" data-tilt="10" style="--c:#ff6a3d">
+                <div class="ring" data-level="70"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>HTML</h3><p>Web structure</p></div>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.3">
+              <article class="skill" data-tilt="10" style="--c:#4c8bf5">
+                <div class="ring" data-level="70"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>CSS</h3><p>Styles &amp; layout</p></div>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.4">
+              <article class="skill" data-tilt="10" style="--c:#f7df1e">
+                <div class="ring" data-level="40"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>JavaScript</h3><p>Web interactivity</p></div>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.5">
+              <article class="skill" data-tilt="10" style="--c:#a78bff">
+                <div class="ring" data-level="80"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>After Effects</h3><p>Motion graphics</p></div>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.6">
+              <article class="skill" data-tilt="10" style="--c:#ff9a00">
+                <div class="ring" data-level="65"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>Illustrator</h3><p>Logos &amp; vectors</p></div>
+              </article>
+            </div>
+            <div class="cell layer" style="--d:1.7">
+              <article class="skill" data-tilt="10" style="--c:#31a8ff">
+                <div class="ring" data-level="45"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-track" cx="60" cy="60" r="54"/><circle class="ring-bar" cx="60" cy="60" r="54"/></svg><span class="ring-val"><b>0</b><small>%</small></span></div>
+                <div class="skill-text"><h3>Photoshop</h3><p>Image editing</p></div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5 · CONTACTO ========== -->
+    <section class="screen" id="contact" tabindex="-1" aria-label="Contact">
+      <div class="bg-word layer" style="--d:.35" data-depth="-14" aria-hidden="true"><span>HELLO</span></div>
+      <div class="fit">
+        <div class="wrap contact">
+          <div class="contact-card layer" style="--d:1">
+            <img class="contact-logo" src="assets/img/logo.png" alt="" data-depth="24" width="512" height="512">
+            <span class="eyebrow">Contact</span>
+            <h2>Have an idea, a suggestion or found a bug?</h2>
+            <p class="lead">Send me an email and I'll get back to you as soon as I can.</p>
+            <a class="btn btn-primary btn-lg" data-email href="#contact">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 1 9 7 9-7"/></svg>
+              Email me
+            </a>
+            <p class="contact-mail" data-email-text></p>
+          </div>
+          <p class="legal-line layer" style="--d:1.4">© <span data-year>2026</span> Jh Company · Independent developer · <a href="privacy.html" target="_blank" rel="noopener">Privacy policy</a></p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <a href="#home" class="brand">
-        <img src="assets/img/logo.png" alt="" width="34" height="34">
-        <span>Jh <b>Company</b></span>
-      </a>
-      <p>© <span data-year>2026</span> Jh Company · Independent developer</p>
-      <nav class="footer-links" aria-label="Footer">
-        <a href="#apps">Apps</a>
-        <a href="privacy.html">Privacy policy</a>
-        <a data-email href="#contact">Email</a>
-      </nav>
-    </div>
-  </footer>
+  <!-- ========== NAVEGACIÓN ENTRE PANTALLAS ========== -->
+  <nav class="dots" aria-label="Screens">
+    <a href="#home"><span>Home</span></a>
+    <a href="#apps"><span>Apps</span></a>
+    <a href="#about"><span>About</span></a>
+    <a href="#portfolio"><span>Portfolio</span></a>
+    <a href="#contact"><span>Contact</span></a>
+  </nav>
+
+  <div class="counter" aria-hidden="true"><b>01</b> / 05</div>
+
+  <button class="next" type="button" aria-label="Next screen">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
+  </button>
+
+  <nav class="tabbar" aria-label="Screens">
+    <a href="#home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5.5 9.5V20h4.5v-5.5h4V20h4.5V9.5"/></svg>
+      Home
+    </a>
+    <a href="#apps">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>
+      Apps
+    </a>
+    <a href="#about">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/></svg>
+      About
+    </a>
+    <a href="#portfolio">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-8M12 20V5M19 20v-5"/></svg>
+      Portfolio
+    </a>
+    <a href="#contact">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 1 9 7 9-7"/></svg>
+      Contact
+    </a>
+  </nav>
+
+  <!-- ========== MÚSICA ========== -->
+  <div class="music" id="music" data-state="loading" hidden>
+    <span class="music-tip">🎵 Tap anywhere to play music</span>
+    <span class="music-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <button class="music-btn music-play" type="button" data-music="play" aria-label="Play music">
+      <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.5 5.8v12.4a1 1 0 0 0 1.5.86l10-6.2a1 1 0 0 0 0-1.72l-10-6.2a1 1 0 0 0-1.5.86Z"/></svg>
+      <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect fill="currentColor" x="6.5" y="5" width="4" height="14" rx="1.2"/><rect fill="currentColor" x="13.5" y="5" width="4" height="14" rx="1.2"/></svg>
+    </button>
+    <button class="music-btn music-mute" type="button" data-music="mute" aria-label="Mute music" aria-pressed="false">
+      <svg class="i-vol" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3.5 9.2v5.6c0 .5.4.9.9.9h3.3l4.7 3.9c.6.5 1.6.1 1.6-.7V5.1c0-.8-1-1.2-1.6-.7L7.7 8.3H4.4c-.5 0-.9.4-.9.9Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16.8 9a4.6 4.6 0 0 1 0 6M19.4 6.4a8.3 8.3 0 0 1 0 11.2"/></svg>
+      <svg class="i-muted" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3.5 9.2v5.6c0 .5.4.9.9.9h3.3l4.7 3.9c.6.5 1.6.1 1.6-.7V5.1c0-.8-1-1.2-1.6-.7L7.7 8.3H4.4c-.5 0-.9.4-.9.9Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m16.5 9.5 5 5m0-5-5 5"/></svg>
+    </button>
+  </div>
+  <div class="yt-decks" id="yt-decks" aria-hidden="true"></div>
 
   <script src="js/config.js"></script>
   <script src="js/vendor/lottie_light.min.js"></script>
   <script src="js/icons.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/music.js"></script>
 </body>
 </html>

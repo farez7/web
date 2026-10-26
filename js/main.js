@@ -1,7 +1,8 @@
 /* =========================================================
    Jh Company — interacciones
-   Parallax 3D, órbita de apps, tarjetas con inclinación,
-   iconos Lottie y animaciones al hacer scroll.
+   Cada sección ocupa una sola pantalla. Se cambia de pantalla
+   con el menú, la rueda del mouse, deslizando o con el teclado,
+   y las capas se mueven a distinta velocidad (parallax 3D).
    ========================================================= */
 (() => {
   'use strict';
@@ -9,10 +10,11 @@
   const cfg = window.JH_CONFIG || {};
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const TAU = Math.PI * 2;
-  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const root = document.documentElement;
 
   /* ---------- Enlaces desde config.js ---------- */
   if (cfg.playStoreUrl) {
@@ -29,84 +31,28 @@
   }
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
-  /* ---------- Navegación ---------- */
+  /* ---------- Página de privacidad: la barra se oscurece al bajar ---------- */
   const nav = $('#nav');
-  const menuBtn = $('.menu-btn');
-  const setScrolled = () => nav && nav.classList.toggle('scrolled', scrollY > 30);
-  addEventListener('scroll', setScrolled, { passive: true });
-  setScrolled();
-
-  if (nav && menuBtn) {
-    const close = () => { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); };
-    menuBtn.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', String(open));
-    });
-    $$('.nav-links a').forEach((a) => a.addEventListener('click', close));
-    addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('scrolled', scrollY > 30);
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 
-  // Resalta la sección visible en el menú
-  const navLinks = $$('.nav-links a[href^="#"]');
-  if (navLinks.length) {
-    const byId = new Map(navLinks.map((a) => [a.getAttribute('href').slice(1), a]));
-    const spy = new IntersectionObserver((entries) => entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      navLinks.forEach((l) => l.classList.remove('active'));
-      const link = byId.get(e.target.id);
-      if (link) link.classList.add('active');
-    }), { rootMargin: '-45% 0px -50% 0px' });
-    byId.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
-  }
+  const screens = $$('.screen');
+  if (!screens.length || !root.classList.contains('fp')) return;
 
-  /* ---------- Aparición al hacer scroll ---------- */
-  $$('[data-stagger]').forEach((g) => Array.from(g.children).forEach((c, i) => c.style.setProperty('--d', (i % 4) * 0.09 + 's')));
-  const revealIO = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('is-in');
-    revealIO.unobserve(e.target);
-  }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  $$('.reveal').forEach((el) => revealIO.observe(el));
+  const ids = screens.map((s) => s.id);
+  const fits = screens.map((s) => $('.fit', s));
+  const navLinks = $$('a[href^="#"]').filter((a) => ids.includes(a.getAttribute('href').slice(1)));
+  const counter = $('.counter b');
+  const nextBtn = $('.next');
+  let index = -1;
+  let activeDepth = [];
 
-  /* ---------- Barras de nivel opcionales (data-level en .tool) ---------- */
-  $$('.tool[data-level]').forEach((t) => {
-    const v = clamp(parseFloat(t.dataset.level) || 0, 0, 100);
-    const row = document.createElement('div');
-    row.className = 'tool-level';
-    row.innerHTML = '<div class="tool-bar"><i style="--v:' + v + '%"></i></div><span>' + v + '%</span>';
-    (t.querySelector('div') || t).appendChild(row);
-  });
-
-  /* ---------- Anillo de porcentaje ---------- */
-  const ringIO = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (!e.isIntersecting) return;
-    ringIO.unobserve(e.target);
-    const ring = e.target;
-    const level = clamp(parseFloat(ring.dataset.level) || 0, 0, 100);
-    const bar = $('.ring-bar', ring);
-    const count = $('.count', ring);
-    const len = 2 * Math.PI * 54;
-    if (bar) bar.style.strokeDashoffset = String(len * (1 - level / 100));
-    if (!count) return;
-    if (reduce) { count.textContent = level; return; }
-    const t0 = performance.now();
-    const dur = 2000;
-    const step = (now) => {
-      const p = Math.min(1, (now - t0) / dur);
-      count.textContent = Math.round(level * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }), { threshold: 0.4 });
-  $$('.ring[data-level]').forEach((r) => ringIO.observe(r));
-
-  /* ---------- Iconos Lottie ---------- */
+  /* ---------- Iconos Lottie (solo se animan los de la pantalla visible) ---------- */
+  const anims = screens.map(() => []);
   if (window.lottie && window.JH_ICONS) {
-    const lottieIO = new IntersectionObserver((entries) => entries.forEach((e) => {
-      const a = e.target._anim;
-      if (a) e.isIntersecting ? a.play() : a.pause();
-    }), { rootMargin: '100px' });
-
     $$('[data-lottie]').forEach((el, i) => {
       const make = window.JH_ICONS[el.dataset.lottie];
       if (!make) return;
@@ -118,15 +64,187 @@
         animationData: make(),
         rendererSettings: { preserveAspectRatio: 'xMidYMid meet' }
       });
-      el._anim = anim;
       anim.goToAndStop(reduce ? 70 : (i * 37) % 180, true);
-      if (reduce) return;
-      lottieIO.observe(el);
-      const card = el.closest('.app-card');
-      if (card) {
+      const k = screens.indexOf(el.closest('.screen'));
+      if (k >= 0) anims[k].push(anim);
+      const card = el.closest('.app');
+      if (card && !reduce) {
         card.addEventListener('mouseenter', () => anim.setSpeed(1.8));
         card.addEventListener('mouseleave', () => anim.setSpeed(1));
       }
+    });
+  }
+  const playAnims = (k) => { if (!reduce) anims[k].forEach((a) => a.play()); };
+  const pauseAnims = (k) => anims[k].forEach((a) => a.pause());
+
+  /* ---------- Anillos de porcentaje ---------- */
+  const CIRC = 2 * Math.PI * 54;
+  const ringRuns = new WeakMap();
+  function fillRings(k) {
+    $$('.ring[data-level]', screens[k]).forEach((ring) => {
+      const level = clamp(parseFloat(ring.dataset.level) || 0, 0, 100);
+      const bar = $('.ring-bar', ring);
+      const out = $('.ring-val b', ring);
+      if (bar) bar.style.strokeDashoffset = String(CIRC * (1 - level / 100));
+      if (!out) return;
+      if (reduce) { out.textContent = level; return; }
+      const run = {};
+      ringRuns.set(ring, run);
+      const t0 = performance.now() + 450;
+      const step = (now) => {
+        if (ringRuns.get(ring) !== run) return;
+        const p = clamp((now - t0) / 1600, 0, 1);
+        out.textContent = Math.round(level * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  function emptyRings(k) {
+    $$('.ring[data-level]', screens[k]).forEach((ring) => {
+      ringRuns.delete(ring);
+      const bar = $('.ring-bar', ring);
+      const out = $('.ring-val b', ring);
+      if (bar) {
+        bar.style.transition = 'none';
+        bar.style.strokeDashoffset = String(CIRC);
+        bar.getBoundingClientRect();
+        bar.style.transition = '';
+      }
+      if (out) out.textContent = '0';
+    });
+  }
+
+  /* ---------- Cambio de pantalla ---------- */
+  function go(k, opts) {
+    k = clamp(k, 0, screens.length - 1);
+    if (k === index) return;
+    const prev = index;
+    const hadFocus = prev >= 0 && screens[prev].contains(document.activeElement);
+    index = k;
+
+    screens.forEach((s, i) => {
+      s.classList.toggle('is-active', i === k);
+      s.classList.toggle('is-before', i < k);
+    });
+    root.dataset.screen = ids[k];
+    navLinks.forEach((a) => {
+      if (a.getAttribute('href') === '#' + ids[k]) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+    if (counter) counter.textContent = String(k + 1).padStart(2, '0');
+    if (nextBtn) {
+      const last = k === screens.length - 1;
+      nextBtn.classList.toggle('is-up', last);
+      nextBtn.setAttribute('aria-label', last ? 'Back to the first screen' : 'Next screen');
+    }
+    if (!(opts && opts.keepHash)) {
+      try { history.replaceState(null, '', '#' + ids[k]); } catch (e) { /* sin historial */ }
+    }
+
+    playAnims(k);
+    fillRings(k);
+    if (prev >= 0) {
+      setTimeout(() => {
+        if (index === prev) return;
+        pauseAnims(prev);
+        emptyRings(prev);
+      }, 1100);
+    }
+    activeDepth = $$('[data-depth]', screens[k]);
+    if (hadFocus) screens[k].focus({ preventScroll: true });
+  }
+
+  // Menú superior, puntos, barra inferior y botones internos
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const k = ids.indexOf(a.getAttribute('href').slice(1));
+    if (k < 0) return;
+    e.preventDefault();
+    go(k);
+  });
+  if (nextBtn) nextBtn.addEventListener('click', () => go(index === screens.length - 1 ? 0 : index + 1));
+  addEventListener('hashchange', () => {
+    const k = ids.indexOf(location.hash.slice(1));
+    if (k >= 0) go(k, { keepHash: true });
+  });
+
+  // Teclado
+  addEventListener('keydown', (e) => {
+    if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+    const t = e.target;
+    const tag = t && t.tagName ? t.tagName.toLowerCase() : '';
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || (t && t.isContentEditable)) return;
+    let k = null;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') k = index + 1;
+    else if (e.key === 'ArrowUp' || e.key === 'PageUp') k = index - 1;
+    else if (e.key === 'Home') k = 0;
+    else if (e.key === 'End') k = screens.length - 1;
+    else if (e.key === ' ' && tag !== 'button' && tag !== 'a') k = index + (e.shiftKey ? -1 : 1);
+    if (k === null) return;
+    e.preventDefault();
+    go(k);
+  });
+
+  // Rueda del mouse / trackpad: un gesto = una pantalla
+  let wheelSum = 0;
+  let wheelLast = 0;
+  let wheelLock = 0;
+  let wheelWait = false;
+  addEventListener('wheel', (e) => {
+    if (e.ctrlKey) return; // zoom con el trackpad
+    e.preventDefault();
+    const now = performance.now();
+    const gap = now - wheelLast;
+    wheelLast = now;
+    if (now < wheelLock) { wheelWait = true; return; }
+    if (wheelWait && gap < 160) return; // todavía es la inercia del mismo gesto
+    wheelWait = false;
+    if (gap > 300) wheelSum = 0;
+    const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
+    if (Math.abs(e.deltaX) > Math.abs(dy)) return;
+    wheelSum += dy;
+    if (Math.abs(wheelSum) < 40) return;
+    const dir = wheelSum > 0 ? 1 : -1;
+    wheelSum = 0;
+    wheelLock = now + 850;
+    wheelWait = true;
+    go(index + dir);
+  }, { passive: false });
+
+  // Deslizar con el dedo
+  let touch = null;
+  addEventListener('touchstart', (e) => {
+    touch = e.touches.length === 1
+      ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now() }
+      : null;
+  }, { passive: true });
+  addEventListener('touchmove', (e) => {
+    // evita el rebote de la página y "jalar para recargar"; el zoom con dos dedos sigue funcionando
+    if (e.touches.length === 1 && e.cancelable) e.preventDefault();
+  }, { passive: false });
+  addEventListener('touchend', (e) => {
+    if (!touch || !e.changedTouches.length) return;
+    const dx = e.changedTouches[0].clientX - touch.x;
+    const dy = e.changedTouches[0].clientY - touch.y;
+    const dt = performance.now() - touch.t;
+    touch = null;
+    if (dt > 800 || Math.abs(dy) < 50 || Math.abs(dy) < Math.abs(dx) * 1.2) return;
+    go(index + (dy < 0 ? 1 : -1));
+  }, { passive: true });
+
+  /* ---------- Que cada pantalla quepa completa ---------- */
+  function fit() {
+    screens.forEach((s, k) => {
+      const f = fits[k];
+      if (!f) return;
+      f.style.scale = '';
+      const cs = getComputedStyle(s);
+      const h = s.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      const w = s.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const sc = Math.min(1, h / f.offsetHeight, w / f.offsetWidth);
+      if (sc < 0.995) f.style.scale = sc.toFixed(3);
     });
   }
 
@@ -134,14 +252,14 @@
   if (finePointer && !reduce) {
     $$('[data-tilt]').forEach((el) => {
       const max = parseFloat(el.dataset.tilt) || 8;
-      let frame = 0;
+      let raf = 0;
       let last = null;
       el.addEventListener('pointermove', (e) => {
         last = e;
         el.classList.add('is-tilting');
-        if (frame) return;
-        frame = requestAnimationFrame(() => {
-          frame = 0;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
           const r = el.getBoundingClientRect();
           const px = clamp((last.clientX - r.left) / r.width, 0, 1);
           const py = clamp((last.clientY - r.top) / r.height, 0, 1);
@@ -152,7 +270,7 @@
         });
       });
       el.addEventListener('pointerleave', () => {
-        if (frame) { cancelAnimationFrame(frame); frame = 0; }
+        if (raf) { cancelAnimationFrame(raf); raf = 0; }
         el.classList.remove('is-tilting');
         el.style.setProperty('--rx', '0deg');
         el.style.setProperty('--ry', '0deg');
@@ -160,86 +278,64 @@
     });
   }
 
-  /* =========================================================
-     ESCENA 3D DEL HERO + PARALLAX
-     ========================================================= */
-  const hero = $('#home');
+  /* ---------- Escena 3D del inicio ---------- */
   const scene = $('#scene');
   const logo3d = $('#logo3d');
+  const orbitPath = $('.orbit-path');
   const orbitItems = $$('#orbit .orbit-item');
-  const heroCopy = $('.hero-copy');
-  const heroVisual = $('.hero-visual');
-  const glow = $('.cursor-glow');
-  const depthEls = $$('[data-depth]');
-  const speedEls = $$('[data-speed]');
-  const blobs = $$('.bg span');
-  const canvas = $('#stars');
-
-  let vw = innerWidth;
-  let vh = innerHeight;
-  let mx = 0, my = 0;          // puntero (-1 a 1)
-  let sx = 0, sy = 0;          // puntero suavizado
-  let gx = vw / 2, gy = vh / 2, tgx = gx, tgy = gy;
-  let heroOn = true;
-  let gyro = false;
-  let orbitR = 250;
 
   // Volumen del logo: copias apiladas en profundidad
   if (logo3d) {
     const img = logo3d.querySelector('img');
-    const LAYERS = 14;
-    for (let i = 1; i <= LAYERS; i++) {
+    for (let i = 1; i <= 14; i++) {
       const c = img.cloneNode();
       c.alt = '';
       c.style.transform = 'translateZ(' + (-i * 1.7) + 'px)';
       c.style.filter = 'brightness(' + Math.max(0.2, 0.62 - i * 0.03).toFixed(2) + ') saturate(1.25)';
       logo3d.appendChild(c);
     }
-    const shadow = img.cloneNode();
-    shadow.alt = '';
-    shadow.style.transform = 'translateZ(-40px) scale(1.05)';
-    shadow.style.filter = 'blur(22px) brightness(1.1)';
-    shadow.style.opacity = '.65';
-    logo3d.appendChild(shadow);
+    const glow = img.cloneNode();
+    glow.alt = '';
+    glow.style.transform = 'translateZ(-40px) scale(1.05)';
+    glow.style.filter = 'blur(22px) brightness(1.1)';
+    glow.style.opacity = '.65';
+    logo3d.appendChild(glow);
     img.style.transform = 'translateZ(1px)';
   }
 
-  const measure = () => {
-    vw = innerWidth;
-    vh = innerHeight;
-    if (scene) orbitR = Math.min(scene.clientWidth * (vw < 640 ? 0.38 : 0.44), 260);
-  };
-  measure();
-
-  // Puntero / giroscopio
-  addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse') return;
-    mx = e.clientX / vw * 2 - 1;
-    my = e.clientY / vh * 2 - 1;
-    tgx = e.clientX;
-    tgy = e.clientY;
-    if (glow) glow.classList.add('on');
-  }, { passive: true });
-  document.documentElement.addEventListener('mouseleave', () => { mx = 0; my = 0; if (glow) glow.classList.remove('on'); });
-
-  if (!finePointer) {
-    addEventListener('deviceorientation', (e) => {
-      if (e.gamma == null || e.beta == null) return;
-      gyro = true;
-      mx = clamp(e.gamma / 30, -1, 1);
-      my = clamp((e.beta - 45) / 30, -1, 1);
-    }, { passive: true });
+  let orbitRX = 240;
+  let orbitRY = 66;
+  let orbitY = 40;
+  function measure() {
+    if (!scene || !orbitPath) return;
+    orbitRX = orbitPath.offsetWidth / 2;
+    orbitRY = orbitPath.offsetHeight / 2;
+    orbitY = scene.clientHeight * 0.08;
   }
 
-  if (hero) {
-    new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; }, { rootMargin: '60px' }).observe(hero);
+  let sx = 0;
+  let sy = 0;
+  function placeOrbit(t) {
+    const n = orbitItems.length;
+    orbitItems.forEach((el, i) => {
+      const a = t * 0.00024 + i * TAU / n;
+      const depth = Math.sin(a); // -1 atrás · 1 adelante
+      const x = Math.cos(a) * orbitRX + sx * 14 * depth;
+      const y = orbitY + depth * orbitRY - sy * 16 * depth;
+      const k = (depth + 1) / 2;
+      el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + (0.66 + k * 0.38).toFixed(3) + ')';
+      el.style.opacity = (0.45 + k * 0.55).toFixed(3);
+      el.style.zIndex = depth > 0 ? 200 : 50;
+    });
   }
 
-  /* ---------- Partículas ---------- */
+  /* ---------- Estrellas del fondo ---------- */
+  const canvas = $('#stars');
   let ctx = null;
   let parts = [];
-  let cw = 0, ch = 0;
-  const setupStars = () => {
+  let cw = 0;
+  let ch = 0;
+  function setupStars() {
     if (!canvas) return;
     const dpr = Math.min(devicePixelRatio || 1, 2);
     cw = canvas.clientWidth;
@@ -256,97 +352,97 @@
       tw: Math.random() * TAU,
       red: Math.random() < 0.3
     }));
-  };
-  setupStars();
+  }
 
-  const drawStars = (t) => {
+  let world = 0; // posición suavizada entre pantallas
+  function drawStars(t) {
     if (!ctx) return;
     ctx.clearRect(0, 0, cw, ch);
     for (const p of parts) {
-      p.y -= p.z * 0.22;
-      if (p.y < -6) { p.y = ch + 6; p.x = Math.random() * cw; }
+      p.y -= p.z * 0.2;
+      if (p.y < -ch) p.y += ch;
+      let y = (p.y - world * 180 * p.z - sy * 26 * p.z) % ch;
+      if (y < 0) y += ch;
       const x = p.x - sx * 40 * p.z;
-      const y = p.y - sy * 26 * p.z;
       const a = (0.25 + 0.75 * Math.abs(Math.sin(t / 1100 + p.tw))) * p.z;
       ctx.fillStyle = p.red ? 'rgba(255,90,70,' + a.toFixed(3) + ')' : 'rgba(255,255,255,' + (a * 0.85).toFixed(3) + ')';
       ctx.beginPath();
       ctx.arc(x, y, 0.4 + p.z * 1.5, 0, TAU);
       ctx.fill();
     }
-  };
+  }
 
-  /* ---------- Órbita de apps ---------- */
-  const placeOrbit = (t) => {
-    const n = orbitItems.length;
-    const ry = orbitR * 0.28;
-    orbitItems.forEach((el, i) => {
-      const a = t * 0.00024 + i * TAU / n;
-      const depth = Math.sin(a);                      // -1 atrás · 1 adelante
-      const x = Math.cos(a) * orbitR + sx * 14 * depth;
-      const y = depth * ry + 40 * (orbitR / 260) - sy * 16 * depth;
-      const k = (depth + 1) / 2;
-      el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + (0.66 + k * 0.38).toFixed(3) + ')';
-      el.style.opacity = (0.45 + k * 0.55).toFixed(3);
-      el.style.zIndex = depth > 0 ? 200 : 50;
-    });
-  };
+  /* ---------- Parallax con el mouse o el giroscopio ---------- */
+  const blobs = $$('.world .blob');
+  let mx = 0;
+  let my = 0;
+  let gyro = false;
+  addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    mx = e.clientX / innerWidth * 2 - 1;
+    my = e.clientY / innerHeight * 2 - 1;
+  }, { passive: true });
+  root.addEventListener('mouseleave', () => { mx = 0; my = 0; });
+  if (!finePointer) {
+    addEventListener('deviceorientation', (e) => {
+      if (e.gamma == null || e.beta == null) return;
+      gyro = true;
+      mx = clamp(e.gamma / 30, -1, 1);
+      my = clamp((e.beta - 45) / 30, -1, 1);
+    }, { passive: true });
+  }
 
-  /* ---------- Bucle principal ---------- */
-  const tick = (t) => {
+  function frame(t) {
     const auto = !finePointer && !gyro;
     const tx = auto ? Math.sin(t / 2600) * 0.6 : mx;
     const ty = auto ? Math.cos(t / 3100) * 0.35 : my;
     sx += (tx - sx) * 0.06;
     sy += (ty - sy) * 0.06;
-    const y = scrollY;
+    world += (index - world) * 0.045;
 
-    if (heroOn) {
-      if (logo3d) {
-        const rx = -sy * 16 + Math.sin(t / 1700) * 4;
-        const ryDeg = sx * 26 + Math.sin(t / 2300) * 12;
-        logo3d.style.transform = 'translateY(' + (Math.sin(t / 1300) * 10).toFixed(2) + 'px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ryDeg.toFixed(2) + 'deg)';
-      }
-      placeOrbit(t);
-      depthEls.forEach((el) => {
-        const d = parseFloat(el.dataset.depth) || 0;
-        el.style.translate = (sx * d).toFixed(1) + 'px ' + (sy * d).toFixed(1) + 'px';
-      });
-      if (heroCopy) {
-        heroCopy.style.translate = '0 ' + (y * 0.16).toFixed(1) + 'px';
-        heroCopy.style.opacity = Math.max(0, 1 - y / (vh * 0.8)).toFixed(3);
-      }
-      if (heroVisual) heroVisual.style.translate = '0 ' + (y * 0.3).toFixed(1) + 'px';
-      drawStars(t);
+    activeDepth.forEach((el) => {
+      const d = parseFloat(el.dataset.depth) || 0;
+      el.style.translate = (sx * d).toFixed(1) + 'px ' + (sy * d).toFixed(1) + 'px';
+    });
+    if (logo3d) {
+      const rx = -sy * 16 + Math.sin(t / 1700) * 4;
+      const ry = sx * 26 + Math.sin(t / 2300) * 12;
+      logo3d.style.transform = 'translateY(' + (Math.sin(t / 1300) * 8).toFixed(2) + 'px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
     }
-
-    // Parallax de elementos con data-speed (lectura primero, luego escritura)
-    const offsets = speedEls.map((el) => {
-      const r = (el.offsetParent || el.parentElement).getBoundingClientRect();
-      return r.top + r.height / 2 - vh / 2;
-    });
-    speedEls.forEach((el, i) => {
-      el.style.translate = '0 ' + (-offsets[i] * (parseFloat(el.dataset.speed) || 0)).toFixed(1) + 'px';
-    });
-
+    placeOrbit(t);
     blobs.forEach((b, i) => {
-      b.style.translate = (sx * (i + 1) * -18).toFixed(1) + 'px ' + (-y * (0.12 + i * 0.1)).toFixed(1) + 'px';
+      b.style.translate = (sx * (i + 1) * -18).toFixed(1) + 'px ' + (-world * (36 + i * 26)).toFixed(1) + 'px';
     });
+    drawStars(t);
+    requestAnimationFrame(frame);
+  }
 
-    if (glow && finePointer) {
-      gx += (tgx - gx) * 0.12;
-      gy += (tgy - gy) * 0.12;
-      glow.style.transform = 'translate3d(' + gx.toFixed(1) + 'px,' + gy.toFixed(1) + 'px,0)';
-    }
+  /* ---------- Inicio ---------- */
+  measure();
+  setupStars();
+  fit();
 
-    requestAnimationFrame(tick);
-  };
+  let resizeRaf = 0;
+  addEventListener('resize', () => {
+    cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => {
+      measure();
+      setupStars();
+      fit();
+      if (reduce) { placeOrbit(0); drawStars(0); }
+    });
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fit(); measure(); });
+  addEventListener('load', () => { fit(); measure(); });
 
-  addEventListener('resize', () => { measure(); setupStars(); }, { passive: true });
+  // Pantalla inicial (por ejemplo index.html#apps abre directo en Apps)
+  const first = Math.max(0, ids.indexOf(location.hash.slice(1)));
+  requestAnimationFrame(() => requestAnimationFrame(() => go(first, { keepHash: !location.hash })));
 
   if (reduce) {
     placeOrbit(0);
     drawStars(0);
   } else {
-    requestAnimationFrame(tick);
+    requestAnimationFrame(frame);
   }
 })();

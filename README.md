@@ -1,18 +1,45 @@
 # Jh Company · Página web
 
-Página web (en inglés) con parallax 3D animado para mostrar las apps de **Jh Company**: QR Generator, Stickers, Wallpapers, Chat, Quiz, Ringtones y Nick Name.
+Página web (en inglés) para mostrar las apps de **Jh Company**: QR Generator, Stickers, Wallpapers, Chat, Quiz, Ringtones y Nick Name.
+
+- **Una pantalla por sección**, sin desplazamiento: Home, Apps, About, Portfolio y Contact.
+- **Parallax 3D**: al cambiar de pantalla las capas se mueven a distinta velocidad, y siguen al mouse (o al giroscopio del celular).
+- **Música de fondo** de YouTube en bucle, con botón flotante para pausar o silenciar.
 
 Está hecha solo con **HTML, CSS y JavaScript**. No hay que instalar nada.
 
-## Cómo abrirla
+## Cómo moverse entre pantallas
 
-Haz doble clic en `index.html` y se abre en tu navegador. La página funciona sin conexión; solo las fuentes de Google necesitan Internet.
+- Menú superior o puntos de la derecha (computadora)
+- Barra inferior (celular)
+- Rueda del mouse, flechas ↑ ↓ del teclado o deslizando el dedo
+- Enlace directo a una pantalla: `index.html#apps`, `#about`, `#portfolio`, `#contact`
+
+## Música
+
+Se configura en `js/config.js` → `music`:
+
+| Ajuste | Qué hace |
+| --- | --- |
+| `youtubeId` | Código del video (lo que va después de `watch?v=`) |
+| `start` / `end` | Inicio y final del fragmento en segundos (80 = 1:20, 135 = 2:15) |
+| `volume` | Volumen de 0 a 100 |
+| `fade` | Segundos del fundido al volver al inicio |
+
+Para que el bucle no se escuche cortado, la página usa dos reproductores ocultos que se turnan con un fundido cruzado.
+
+Ten en cuenta:
+
+- Los navegadores no dejan sonar música hasta que el visitante toca, hace clic o presiona una tecla. La música empieza sola con ese primer toque, en cualquier parte de la página.
+- En iPhone y iPad no se puede cambiar el volumen desde una página web, así que ahí el bucle salta al inicio sin fundido.
+- Prueba la música con la página publicada (GitHub Pages). Abierta con doble clic, YouTube puede negarse a reproducir; en ese caso el botón de música no aparece.
+- Si el video tiene anuncios, YouTube puede ponerlos antes de la música.
 
 ## Qué editar
 
 | Qué quieres cambiar | Dónde |
 | --- | --- |
-| Enlace de Google Play y tu correo | `js/config.js` |
+| Enlace de Google Play, correo y música | `js/config.js` |
 | Textos de las apps, sobre mí y contacto | `index.html` |
 | Porcentajes de las herramientas | `index.html` → atributo `data-level` de cada una |
 | Política de privacidad (solo del sitio web) | `privacy.html` |
@@ -23,12 +50,13 @@ Haz doble clic en `index.html` y se abre en tu navegador. La página funciona si
 ## Estructura
 
 ```
-index.html            Página principal
+index.html            Página principal (5 pantallas)
 privacy.html          Política de privacidad del sitio web
 css/style.css         Estilos
-js/config.js          Enlace de Play Store y correo
+js/config.js          Play Store, correo y música
+js/main.js            Pantallas, parallax 3D y animaciones
+js/music.js           Música de fondo de YouTube
 js/icons.js           Iconos Lottie de cada app
-js/main.js            Parallax 3D, órbita, animaciones
 js/vendor/            Librería lottie-web (local, sin CDN)
 assets/img/           Logo, foto y favicon
 ```

@@ -10,5 +10,14 @@ window.JH_CONFIG = {
   email: 'jh.company.app@gmail.com',
 
   // Asunto que aparece al abrir el correo
-  emailSubject: 'Hello Jh Company'
+  emailSubject: 'Hello Jh Company',
+
+  // Música de fondo (video de YouTube)
+  music: {
+    youtubeId: 'nV2_ehKrjHg', // el código del video: youtube.com/watch?v=ESTE_CODIGO
+    start: 80,                // inicio del fragmento en segundos (1:20)
+    end: 135,                 // final del fragmento en segundos (2:15)
+    volume: 70,               // volumen de 0 a 100
+    fade: 3                   // segundos de fundido al volver al inicio
+  }
 };
