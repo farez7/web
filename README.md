@@ -25,14 +25,12 @@ Se configura en `js/config.js` → `music`:
 | `start` / `end` | Inicio y final del fragmento en segundos (80 = 1:20, 135 = 2:15) |
 | `volume` | Volumen de 0 a 100 |
 | `fade` | Segundos del fundido al volver al inicio |
-| `intro` | `true` muestra la pantalla de bienvenida con el botón **Enter** |
 
 Para que el bucle no se escuche cortado, la página usa dos reproductores ocultos que se turnan con un fundido cruzado.
 
 Ten en cuenta:
 
-- Ningún navegador deja que una página suene antes de que el visitante haga clic, toque o presione una tecla. Por eso la página abre con una pantalla de bienvenida: el clic en **Enter** da ese permiso y la música empieza en ese momento. También hay un enlace "Enter without music".
-- Si pones `intro: false`, no hay bienvenida y la música empieza con el primer clic, toque o tecla en cualquier parte de la página (mover la rueda del mouse no cuenta).
+- Ningún navegador deja que una página suene antes de que el visitante haga clic, toque o presione una tecla. La música empieza sola con ese primer clic, toque o tecla, en cualquier parte de la página (mover la rueda del mouse no cuenta).
 - En iPhone y iPad no se puede cambiar el volumen desde una página web, así que ahí el bucle salta al inicio sin fundido.
 - Prueba la música con la página publicada (GitHub Pages). Abierta con doble clic, YouTube puede negarse a reproducir; en ese caso el botón de música no aparece.
 - Si el video tiene anuncios, YouTube puede ponerlos antes de la música.
@@ -68,7 +66,7 @@ assets/img/           Logo, foto y favicon
 1. Sube **todo** el contenido del ZIP a la carpeta raíz del sitio y acepta reemplazar los archivos (`index.html`, `privacy.html` y las carpetas `css`, `js`, `assets`).
 2. Abre tu web y presiona **Ctrl + F5** (en celular, recarga la página).
 
-Tu servidor le dice al navegador que guarde los archivos `.css` y `.js` durante 12 horas. Por eso cada enlace lleva un número de versión, por ejemplo `css/style.css?v=20261026b`. **Si cambias un archivo CSS o JS, cambia ese número** en `index.html` y `privacy.html`, así los visitantes reciben la versión nueva al momento.
+Tu servidor le dice al navegador que guarde los archivos `.css` y `.js` durante 12 horas. Por eso cada enlace lleva un número de versión, por ejemplo `css/style.css?v=20261026c`. **Si cambias un archivo CSS o JS, cambia ese número** en `index.html` y `privacy.html`, así los visitantes reciben la versión nueva al momento.
 
 ## Publicarla gratis
 
