@@ -61,6 +61,13 @@ js/vendor/            Librería lottie-web (local, sin CDN)
 assets/img/           Logo, foto y favicon
 ```
 
+## Subirla a tu hosting (aaPanel u otro)
+
+1. Sube **todo** el contenido del ZIP a la carpeta raíz del sitio y acepta reemplazar los archivos (`index.html`, `privacy.html` y las carpetas `css`, `js`, `assets`).
+2. Abre tu web y presiona **Ctrl + F5** (en celular, recarga la página).
+
+Tu servidor le dice al navegador que guarde los archivos `.css` y `.js` durante 12 horas. Por eso cada enlace lleva un número de versión, por ejemplo `css/style.css?v=20261026`. **Si cambias un archivo CSS o JS, cambia ese número** en `index.html` y `privacy.html`, así los visitantes reciben la versión nueva al momento.
+
 ## Publicarla gratis
 
 - **GitHub Pages:** en el repositorio ve a *Settings → Pages*, elige la rama y la carpeta `/ (root)` y guarda. Tu web queda en `https://<usuario>.github.io/<repositorio>/`.
