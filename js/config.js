@@ -7,7 +7,7 @@ window.JH_CONFIG = {
   playStoreUrl: 'https://play.google.com/store/apps/dev?id=5277847034429367917',
 
   // Correo al que llegan los mensajes de los botones "Email me"
-  email: 'jh.company.app@gmail.com',
+  email: 'soporte@jhcompany.online',
 
   // Asunto que aparece al abrir el correo
   emailSubject: 'Hello Jh Company',
