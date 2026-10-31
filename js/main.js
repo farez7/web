@@ -23,6 +23,14 @@
       a.target = '_blank';
       a.rel = 'noopener';
     });
+  } else {
+    // Sin enlace por ahora: el botón sigue visible como "Coming soon to Google Play"
+    $$('[data-playstore]').forEach((a) => {
+      a.removeAttribute('href');
+      a.classList.add('is-soon');
+      const label = a.querySelector('[data-soon]');
+      if (label) label.textContent = label.dataset.soon;
+    });
   }
   if (cfg.email) {
     const mail = 'mailto:' + cfg.email + (cfg.emailSubject ? '?subject=' + encodeURIComponent(cfg.emailSubject) : '');

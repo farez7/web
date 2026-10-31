@@ -3,8 +3,11 @@
    Edita solo estos valores y guarda. No hace falta instalar nada.
    ========================================================= */
 window.JH_CONFIG = {
-  // Tu página de desarrollador en Google Play
-  playStoreUrl: 'https://play.google.com/store/apps/dev?id=5277847034429367917',
+  // Tu página de desarrollador en Google Play.
+  // Vacío ('') = botones desactivados: se muestran como "Coming soon to Google Play".
+  // Para activarlos otra vez, pega tu enlace entre las comillas:
+  // https://play.google.com/store/apps/dev?id=5277847034429367917
+  playStoreUrl: '',
 
   // Correo al que llegan los mensajes de los botones "Email me"
   email: 'soporte@jhcompany.online',

@@ -101,6 +101,13 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: -.03em; line-heig
 .btn-play-text strong { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
 @keyframes spin { to { --spin: 360deg; } }
 
+/* Google Play sin enlace (playStoreUrl vacío en config.js) */
+.is-soon { cursor: default; }
+.btn-play.is-soon:hover { transform: none; box-shadow: none; }
+.btn-play.is-soon::before { animation: none; opacity: .45; }
+.btn-play.is-soon .gp-logo { opacity: .75; }
+.app-gp.is-soon .gp-arrow { display: none; }
+
 /* ---------- Marca y correo ---------- */
 .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -.02em; }
 .brand b { font-weight: 500; color: var(--muted); }
